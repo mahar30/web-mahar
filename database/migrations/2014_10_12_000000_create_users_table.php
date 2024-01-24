@@ -12,15 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
-            $table->timestamps();
+            // Baris ini menambahkan kolom 'id' sebagai primary key, yang biasanya digunakan sebagai identifikasi unik untuk setiap record dalam tabel.
+            $table->id(); 
+            // Kolom ini digunakan untuk menyimpan nama pengguna.
+            $table->string('name'); 
+            // Kolom ini digunakan untuk menyimpan alamat email pengguna, dengan pengecualian bahwa setiap alamat email harus unik (unique).
+            $table->string('email')->unique(); 
+            // Kolom ini digunakan untuk menyimpan timestamp verifikasi email. Kolom ini boleh kosong (nullable) jika email belum diverifikasi.
+            $table->timestamp('email_verified_at')->nullable(); 
+            // Kolom ini digunakan untuk menyimpan password pengguna.
+            $table->string('password'); 
+            // Kolom ini digunakan untuk mengingat token login pengguna.
+            $table->rememberToken(); 
+            // Kolom ini digunakan untuk menyimpan kunci luar (foreign key) yang terhubung dengan tim saat ini. Nilai boleh kosong (nullable) jika pengguna tidak terhubung ke tim apa pun.
+            $table->foreignId('current_team_id')->nullable(); 
+            // Kolom ini digunakan untuk menyimpan path foto profil pengguna dengan batasan panjang 2048 karakter. Kolom ini boleh kosong (nullable).
+            $table->string('profile_photo_path', 2048)->nullable(); 
+            // Kolom ini digunakan untuk menyimpan kunci luar (foreign key) yang terhubung dengan tabel 'roles'. Jika peran (role) yang terkait dihapus, maka record yang terkait dalam tabel ini akan dihapus secara otomatis (cascade on delete).
+            $table->foreignId('role_id')->constrained('roles')->cascadeOnDelete(); 
+            // Baris ini menambahkan kolom timestamp otomatis, yaitu 'created_at' dan 'updated_at', yang digunakan untuk melacak kapan record dibuat dan terakhir diubah.
+            $table->timestamps(); 
         });
     }
 

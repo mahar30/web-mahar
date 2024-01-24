@@ -12,15 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('barang', function (Blueprint $table) {
+            // Ini adalah primary key yang akan menyimpan ID
             $table->id();
-            //Field Nama_Barang, keterangan, gambar, status, total_terjual, created_at, updated_at
+            // Ini adalah kolom untuk menyimpan nama barang dengan panjang maksimal 255 karakter
             $table->string('nama_barang',   255);
+            // Ini adalah kolom untuk menyimpan keterangan
             $table->text('keterangan');
+            // Ini adalah kolom untuk menyimpan gambar dengan panjang maksimal 255 karakter
             $table->string('gambar', 255);
+            // Ini adalah kolom untuk menyimpan status dengan panjang maksimal 100 karakter
             $table->string('status', 100);
-            $table->integer('total_terjual', 255);
-            $table->dateTime('creadted_at');
-            $table->dateTime('updated_at');
+            // Ini adalah kolom untuk menyimpan total terjual dengan panjang maksimal 255 karakter
+            $table->integer('total_terjual');
+            //ini adalah kolom timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });
     }

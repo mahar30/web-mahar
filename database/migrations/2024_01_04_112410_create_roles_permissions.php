@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roles_permissions', function (Blueprint $table) {
+            // Mendefinisikan kolom 'role_id' sebagai foreign key yang terhubung dengan tabel 'roles',
+            // dengan pengaturan "onDelete" yang mengindikasikan bahwa jika data di tabel 'roles' dihapus, data yang terkait di tabel ini akan dihapus juga.
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
+
+            // Mendefinisikan kolom 'permission_id' sebagai foreign key yang terhubung dengan tabel 'permissions',
+            // dengan pengaturan "onDelete" yang mengindikasikan bahwa jika data di tabel 'permissions' dihapus, data yang terkait di tabel ini akan dihapus juga.
             $table->foreignId('permission_id')->constrained('permissions')->onDelete('cascade');
         });
     }

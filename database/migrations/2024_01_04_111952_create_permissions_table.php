@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('permissions', function (Blueprint $table) {
+            // Ini adalah primary key yang akan menyimpan ID
             $table->id();
+            // Ini adalah kolom untuk menyimpan nama dengan panjang maksimal 255 karakter
+            $table->string('name');
+            // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });
     }

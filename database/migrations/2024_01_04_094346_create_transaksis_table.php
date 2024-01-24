@@ -11,20 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaksis', function (Blueprint $table) {
+        Schema::create('transaksi', function (Blueprint $table) {
+            // Ini adalah primary key yang akan menyimpan ID
             $table->id();
-            $table->foreignId('user_id')->constrained('user')->onDelete('cascade');
-            //Field kode_transaksi, total_harga, nama_pembeli, alamat_pembeli, no_wa_pembeli, tipe_pembayaran, total_pembelian, status, created_at, updated_at
+            // Ini adalah foreign key yang mengacu pada kolom 'user_id' pada tabel 'users' dengan penghapusan data 'cascade'
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            // Ini adalah kolom untuk menyimpan kode transaksi dengan panjang maksimal 100 karakter
             $table->string('kode_transaksi', 100);
-            $table->decimal('total_harga');
+            // Ini adalah kolom untuk menyimpan total harga dalam bentuk bilangan bulat (integer)
+            $table->integer('total_harga');
+            // Ini adalah kolom untuk menyimpan nama pembeli dengan panjang maksimal 255 karakter
             $table->string('nama_pembeli', 255);
+            // Ini adalah kolom untuk menyimpan alamat pembeli dengan panjang maksimal 255 karakter
             $table->string('alamat_pembeli', 255);
+            // Ini adalah kolom untuk menyimpan nomor WhatsApp pembeli dengan panjang maksimal 255 karakter
             $table->string('no_wa_pembeli', 255);
+            // Ini adalah kolom untuk menyimpan tipe pembayaran dengan panjang maksimal 255 karakter
             $table->string('tipe_pembayaran', 255);
+            // Ini adalah kolom untuk menyimpan total pembelian dengan panjang maksimal 255 karakter
             $table->string('total_pembelian', 255);
+            // Ini adalah kolom untuk menyimpan status transaksi dengan panjang maksimal 100 karakter
             $table->string('status', 100);
-            $table->dateTime('creadted_at');
-            $table->dateTime('updated_at');
+            // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });
     }

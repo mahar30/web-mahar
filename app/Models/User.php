@@ -23,22 +23,25 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
 
+    // Atribut yang dapat diisi (fillable) oleh pengguna
+    protected $fillable = [
+        'name', // Ini adalah nama pengguna
+        'email', // Ini adalah alamat email pengguna
+        'password', // Ini adalah password pengguna (dihash)
+        'role_id', // Ini adalah ID peran (Role) dari pengguna
+    ];
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
+    // Atribut yang tersembunyi (hidden)
     protected $hidden = [
-        'password',
-        'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
+        'password', // Ini adalah password (disembunyikan)
+        'remember_token', // Ini adalah token yang digunakan untuk mengingat sesi
+        'two_factor_recovery_codes', // Ini adalah kode pemulihan dua faktor
+        'two_factor_secret', // Ini adalah rahasia dua faktor
     ];
 
     /**
@@ -46,8 +49,10 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
+
+    // Casts (pengubahan tipe data) untuk atribut email_verified_at
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime', // Atribut ini diubah menjadi tipe data datetime
     ];
 
     /**
@@ -55,7 +60,40 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    // Atribut yang ditambahkan (appends)
     protected $appends = [
-        'profile_photo_url',
+        'profile_photo_url', // Ini adalah URL foto profil
     ];
+
+    // Hubungan "hasOne" dengan model Keranjang
+    public function keranjang()
+    {
+        return $this->hasOne(Keranjang::class);
+    }
+
+    // Hubungan "hasOne" dengan model Detailpembeli
+    public function detailpembeli()
+    {
+        return $this->hasOne(Detailpembeli::class);
+    }
+
+    // Hubungan "hasMany" dengan model Pembayaran
+    public function pembayaran()
+    {
+        return $this->hasMany(Pembayaran::class);
+    }
+
+    // Hubungan "hasMany" dengan model Transaksi
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+
+    // Hubungan "belongsTo" dengan model Roles
+    // Ini mengindikasikan bahwa satu pengguna (User) memiliki satu peran (Role)
+    // Parameter kedua adalah nama kolom yang menghubungkan pengguna dengan peran (dalam hal ini, 'roles_id')
+    public function roles()
+    {
+        return $this->belongsTo(Roles::class, 'role_id');
+    }
 }

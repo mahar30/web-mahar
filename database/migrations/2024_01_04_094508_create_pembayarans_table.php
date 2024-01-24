@@ -11,18 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pembayarans', function (Blueprint $table) {
+        Schema::create('pembayaran', function (Blueprint $table) {
+            // Ini adalah primary key yang akan menyimpan ID
             $table->id();
-            $table->foreignId('user_id')->constrained('user')->onDelete('cascade');
+            // Ini adalah foreign key yang mengacu pada kolom 'user_id' pada tabel 'user' dengan penghapusan data 'cascade'
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            // Ini adalah foreign key yang mengacu pada kolom 'rekening_id' pada tabel 'rekening' dengan penghapusan data 'cascade'
             $table->foreignId('rekening_id')->constrained('rekening')->onDelete('cascade');
+            // Ini adalah foreign key yang mengacu pada kolom 'transaksi_id' pada tabel 'transaksi' dengan penghapusan data 'cascade'
             $table->foreignId('transaksi_id')->constrained('transaksi')->onDelete('cascade');
-            //Field nama_rekening, foto, total, status, created_at, updated_at
+            // Ini adalah kolom untuk menyimpan nama rekening dengan panjang maksimal 100 karakter
             $table->string('nama_rekening', 100);
+            // Ini adalah kolom untuk menyimpan nama file foto dengan panjang maksimal 255 karakter
             $table->string('foto', 255);
-            $table->decimal('total', 10.2);
+            // Ini adalah kolom untuk menyimpan total dalam bentuk bilangan bulat (integer)
+            $table->integer('total');
+            // Ini adalah kolom untuk menyimpan status dengan panjang maksimal 100 karakter
             $table->string('status', 100);
-            $table->dateTime('creadted_at');
-            $table->dateTime('updated_at');
+            // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });
     }

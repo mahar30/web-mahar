@@ -12,14 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('keranjang', function (Blueprint $table) {
+            
+            // Ini adalah primary key yang akan menyimpan ID
             $table->id();
-            $table->foreignId('user_id')->constrained('user')->onDelete('cascade');
+            // Ini adalah foreign key yang mengacu pada kolom 'user_id' pada tabel 'user' dengan penghapusan data 'cascade'
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            // Ini adalah foreign key yang mengacu pada kolom 'ukuran_id' pada tabel 'ukuran' dengan penghapusan data 'cascade'
             $table->foreignId('ukuran_id')->constrained('ukuran')->onDelete('cascade');
+            // Ini adalah foreign key yang mengacu pada kolom 'barang_id' pada tabel 'barang' dengan penghapusan data 'cascade'
             $table->foreignId('barang_id')->constrained('barang')->onDelete('cascade');
-            //Field jumlah, status, created_at, updated_at
+            // Ini adalah kolom untuk menyimpan jumlah dalam bentuk bilangan bulat (integer)
             $table->integer('jumlah');
+            // Ini adalah kolom untuk menyimpan status dengan panjang maksimal 100 karakter
             $table->string('status', 100);
-            $table->dateTime('creadted_at');
+            // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });
     }

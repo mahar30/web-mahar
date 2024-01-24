@@ -12,14 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail pembeli', function (Blueprint $table) {
+            // Ini adalah primary key yang akan menyimpan ID
             $table->id();
-            $table->foreignId('user_id')->constrained('user')->onDelete('cascade');
-            //Field alamat, no_wa, tanggal_transaksi_trakhir, created_at, updated_at
+            // Ini adalah foreign key yang mengacu pada kolom 'user_id' pada tabel 'user' dengan penghapusan data 'cascade'
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            // Ini adalah kolom untuk menyimpan alamat dengan panjang maksimal 255 karakter
             $table->string('alamat', 255);
+            // Ini adalah kolom untuk menyimpan nomor WhatsApp dengan panjang maksimal 15 karakter
             $table->string('no_wa', 15);
-            $table->dateTime('tanggal_transaksi_trakhir');
-            $table->dateTime('creadted_at');
-            $table->dateTime('updated_at');
+            // Ini adalah kolom untuk menyimpan tanggal transaksi terakhir dalam format DateTime
+            $table->dateTime('tanggal_transaksi_terakhir');
+            // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });
     }
