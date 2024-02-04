@@ -24,7 +24,7 @@ class Roles extends Model
     // Parameter kelima adalah kolom ID izin dalam tabel pivot
     public function permissions()
     {
-        return $this->belongsToMany(Permissions::class, 'roles_permissions', 'role_id', 'permission_id');
+        return $this->belongsToMany(Permissions::class, 'role_permissions', 'role_id', 'permission_id');
     }
 
     // Mendefinisikan hubungan "hasMany" dengan model User
