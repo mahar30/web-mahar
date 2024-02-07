@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail pembeli', function (Blueprint $table) {
+        Schema::create('detailpembeli', function (Blueprint $table) {
             // Ini adalah primary key yang akan menyimpan ID
             $table->id();
             // Ini adalah foreign key yang mengacu pada kolom 'user_id' pada tabel 'user' dengan penghapusan data 'cascade'
