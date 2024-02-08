@@ -19,9 +19,9 @@ return new class extends Migration
             // Ini adalah kolom untuk menyimpan alamat dengan panjang maksimal 255 karakter
             $table->string('alamat', 255);
             // Ini adalah kolom untuk menyimpan nomor WhatsApp dengan panjang maksimal 15 karakter
-            $table->string('no_wa', 15);
+            $table->string('no_wa', 15)->nullable();
             // Ini adalah kolom untuk menyimpan tanggal transaksi terakhir dalam format DateTime
-            $table->dateTime('tanggal_transaksi_terakhir');
+            $table->dateTime('tanggaltransaksi_teraakhir');
             // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });

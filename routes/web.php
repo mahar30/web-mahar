@@ -37,4 +37,32 @@ Route::middleware([
     Route::get('/users', function () {
         return view('users');
     })->name('users');
+
+    Route::get('/barang', function () {
+        return view('barang');
+    })->name('barang');
+
+    Route::get('/detailpembeli', function () {
+        return view('detailpembeli');
+    })->name('detailpembeli');
+
+    Route::get('/keranjang', function () {
+        return view('keranjang');
+    })->name('keranjang');
+
+    Route::get('/pembayaran', function () {
+        return view('pembayaran');
+    })->name('pembayaran');
+
+    Route::get('/rekening', function () {
+        return view('rekening');
+
+    })->name('rekening');
+    Route::get('/transaksi', function () {
+        return view('transaksi');
+    })->name('transaksi');
+
+    Route::get('/ukuran', function () {
+        return view('ukuran');
+    })->name('ukuran');
 });

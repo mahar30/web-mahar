@@ -22,7 +22,6 @@ class Barang extends Model
 
     // Mendefinisikan tipe data untuk atribut 'keterangan' sebagai teks
     protected $casts = [
-        'keterangan' => 'text',
     ];
 
     // Mendefinisikan hubungan "hasMany" dengan model Ukuran

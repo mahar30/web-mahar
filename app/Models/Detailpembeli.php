@@ -16,12 +16,12 @@ class Detailpembeli extends Model
         'user_id', // Ini adalah ID dari pengguna yang terkait dengan detail pembeli
         'alamat', // Ini adalah alamat dari pembeli
         'no_wa', // Ini adalah nomor WhatsApp dari pembeli
-        'tanggal_transaksi_teraakhir', // Ini adalah tanggal transaksi terakhir dalam format datetime
+        'tanggaltransaksi_teraakhir', // Ini adalah tanggal transaksi terakhir dalam format datetime
     ];
 
     // Mendefinisikan tipe data untuk atribut 'tanggal_transaksi_teraakhir' sebagai datetime
     protected $casts = [
-        'tanggal_transaksi_teraakhir' => 'datetime',
+        'tanggaltransaksi_teraakhir' => 'datetime',
     ];
 
     // Mendefinisikan hubungan "belongsTo" dengan model User
