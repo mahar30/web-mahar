@@ -55,16 +55,6 @@
                         <span class="ml-4">Barang</span>
                     </x-nav-link>
                 </li>
-                <li class="relative px-6 py-3 {{ request()->routeIs('detailpembeli') ? 'bg-white' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
-                    <x-nav-link href="{{ route('detailpembeli') }}" :active="request()->routeIs('detailpembeli')" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 {{ request()->routeIs('detailpembeli') ? 'text-teal-500' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
-                        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                            </svg>
-                        <span class="ml-4">Detail Pembeli</span>
-                    </x-nav-link>
-                </li>
                 <li class="relative px-6 py-3 {{ request()->routeIs('keranjang') ? 'bg-white' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
                     <x-nav-link href="{{ route('keranjang') }}" :active="request()->routeIs('keranjang')" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 {{ request()->routeIs('keranjang') ? 'text-teal-500' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -103,6 +93,16 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>                          
                         <span class="ml-4">Ukuran</span>
+                    </x-nav-link>
+                </li>
+                <li class="relative px-6 py-3 {{ request()->routeIs('detailpembeli') ? 'bg-white' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
+                    <x-nav-link href="{{ route('detailpembeli') }}" :active="request()->routeIs('detailpembeli')" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 {{ request()->routeIs('detailpembeli') ? 'text-teal-500' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
+                        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                            </svg>
+                        <span class="ml-4">Detail Pembeli</span>
                     </x-nav-link>
                 </li>
             </ul>

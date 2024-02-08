@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Detail;
 use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
@@ -32,17 +33,32 @@ final class PembayaranTable extends PowerGridComponent
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
+            Detail::make()
+                ->showCollapseIcon()
+                ->view('details.pembayaran-detail'),
         ];
     }
 
     public function datasource(): Builder
     {
-        return Pembayaran::query();
+        return Pembayaran::query()
+        ->leftJoin('users', 'pembayaran.user_id', '=', 'users.id')
+        ->leftJoin('rekening', 'pembayaran.rekening_id', '=', 'rekening.id')
+        ->leftJoin('transaksi', 'pembayaran.transaksi_id', '=', 'transaksi.id')
+        ->select('pembayaran.*', 'users.name as user_name', 'rekening.nama_bank as nama_bank', 'transaksi.total as total_transaksi', 'transaksi.status as status_transaksi')
+
+        ;
     }
 
     public function relationSearch(): array
     {
-        return [];
+        return [
+            'user_name' => 'name',
+            'nama_bank' => 'nama_bank',
+            'total_transaksi' => 'total_transaksi',
+            'status_transaksi' => 'status_transaksi',
+
+        ];
     }
 
     public function fields(): PowerGridFields
@@ -51,43 +67,55 @@ final class PembayaranTable extends PowerGridComponent
             ->add('id')
             ->add('transaksi_id')
             ->add('user_id')
+            ->add('name')
             ->add('rekening_id')
             ->add('foto')
             ->add('total')
             ->add('nama_rekening')
             ->add('status')
-            ->add('created_at');
+            ;
     }
 
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id'),
-            Column::make('Transaksi id', 'transaksi_id'),
-            Column::make('User id', 'user_id'),
-            Column::make('Rekening id', 'rekening_id'),
-            Column::make('Foto', 'foto')
+            Column::make('Id', 'id')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Total', 'total')
+            Column::make('Id Transaksi', 'transaksi_id')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Nama rekening', 'nama_rekening')
+            Column::make('User id', 'user_id')
                 ->sortable()
                 ->searchable(),
-
-            Column::make('Status', 'status')
+            column::make('Nama ', 'name')
                 ->sortable()
                 ->searchable(),
-
-            Column::make('Created at', 'created_at_formatted', 'created_at')
-                ->sortable(),
-
-            Column::make('Created at', 'created_at')
+                
+            Column::make('Rekening id', 'rekening_id')
                 ->sortable()
                 ->searchable(),
+            
+            // Column::make('Foto', 'foto')
+            //     ->sortable()
+            //     ->searchable(),
+
+            // Column::make('Total', 'total')
+            //     ->sortable()
+            //     ->searchable(),
+
+            // Column::make('Nama rekening', 'nama_rekening')
+            //     ->sortable()
+            //     ->searchable(),
+
+            // Column::make('Status', 'status')
+            //     ->sortable()
+            //     ->searchable(),
+
+            // Column::make('Created at', 'created_at_formatted', 'created_at')
+            //     ->sortable(),
 
             Column::action('Action')
         ];

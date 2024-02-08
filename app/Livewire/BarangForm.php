@@ -4,8 +4,9 @@ namespace App\Livewire;
 
 use App\Models\Barang;
 use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 
-class BarangForm extends Component
+class BarangForm extends ModalComponent
 {
 
     public $nama_barang, $keterangan, $gambar, $status, $total_terjual, $id, $barang;

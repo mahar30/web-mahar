@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Detail;
 use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
@@ -33,6 +34,9 @@ final class DetailpembeliTable extends PowerGridComponent
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
+            Detail::make()
+                ->showCollapseIcon()
+                ->view('details.detailpembeli-detail')
         ];
     }
 
@@ -73,15 +77,15 @@ final class DetailpembeliTable extends PowerGridComponent
                 ->searchable()
                 ->sortable(),
 
-            Column::make('Nama', 'name')
+            Column::make('Nama Pembeli', 'name')
                 ->searchable()
                 ->sortable(),
 
-            Column::make('Alamat', 'alamat')
-                ->searchable()
-                ->sortable(),
+            // Column::make('Alamat', 'alamat')
+            //     ->searchable()
+            //     ->sortable(),
 
-            column::make('No Wa', 'no_wa')
+            column::make('No Wa Pembeli', 'no_wa')
                 ->searchable()  
                 ->sortable(),
 

@@ -5,8 +5,9 @@ namespace App\Livewire;
 use App\Models\Detailpembeli;
 use App\Models\User;
 use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 
-class DetailPembeliForm extends Component
+class DetailPembeliForm extends ModalComponent
 {
     public $detailpembeli, $user_id, $alamat, $no_wa, $tanggaltransaksi_teraakhir, $user, $id;
     public function render()

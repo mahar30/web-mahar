@@ -74,9 +74,9 @@ final class BarangTable extends PowerGridComponent
             //     ->sortable()
             //     ->searchable(),
 
-            Column::make('Gambar', 'gambar')
-                ->sortable()
-                ->searchable(),
+            // Column::make('Gambar', 'gambar')
+            //     ->sortable()
+            //     ->searchable(),
 
             Column::make('Status', 'status')
                 ->sortable()

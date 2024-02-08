@@ -16,7 +16,6 @@ class Pembayaran extends Model
         'transaksi_id', // Ini adalah ID dari transaksi yang terkait dengan pembayaran
         'user_id', // Ini adalah ID dari pengguna yang melakukan pembayaran
         'rekening_id', // Ini adalah ID dari rekening yang digunakan untuk pembayaran
-        'no_rekening', // Ini adalah nomor rekening yang digunakan untuk pembayaran
         'foto', // Ini adalah nama file foto atau bukti pembayaran
         'total', // Ini adalah total pembayaran
         'nama_rekening', // Ini adalah nama pemilik rekening yang digunakan untuk pembayaran
