@@ -46,7 +46,7 @@ final class PembayaranTable extends PowerGridComponent
         ->leftJoin('users', 'pembayaran.user_id', '=', 'users.id')
         ->leftJoin('rekening', 'pembayaran.rekening_id', '=', 'rekening.id')
         ->leftJoin('transaksi', 'pembayaran.transaksi_id', '=', 'transaksi.id')
-        ->select('pembayaran.*', 'users.name as user_name', 'rekening.nama_bank as nama_bank', 'transaksi.total_pembelian as total pembelian ', 'transaksi.status as status_transaksi')
+        ->select('pembayaran.*', 'users.name as name', 'rekening.nama_bank as nama_bank', 'transaksi.total_pembelian as total pembelian ', 'transaksi.status as status_transaksi')
 
         ;
     }
@@ -54,7 +54,7 @@ final class PembayaranTable extends PowerGridComponent
     public function relationSearch(): array
     {
         return [
-            'users.name' => 'user_name',
+            'users.name' => 'name',
             'rekening' => 'nama_bank',
             // 'transaksi' => ['total pembelian', 'status_transaksi'],
 
@@ -65,10 +65,11 @@ final class PembayaranTable extends PowerGridComponent
     public function fields(): PowerGridFields
     {
         return PowerGrid::fields()
+            ->add('id')
             ->add('transaksi_id')
             ->add('user_id')
             ->add('rekening_id')
-            ->add('user_name')
+            ->add('name')
             ->add('foto')
             ->add('total')
             ->add('nama_rekening')
@@ -79,19 +80,23 @@ final class PembayaranTable extends PowerGridComponent
     public function columns(): array
     {
         return [
+            Column::make('Id', 'id')
+                ->sortable()
+                ->searchable(),
+
+            column::make('Nama ', 'name')
+                ->sortable()
+                ->searchable(),
 
             Column::make('Id Transaksi', 'transaksi_id')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('User id', 'user_id')
+            Column::make('Id user ', 'user_id')
                 ->sortable()
                 ->searchable(),
-            column::make('Nama ', 'user_name')
-                ->sortable()
-                ->searchable(),
-                
-            Column::make('Rekening id', 'rekening_id')
+
+            Column::make('Id Rekening', 'rekening_id')
                 ->sortable()
                 ->searchable(),
             

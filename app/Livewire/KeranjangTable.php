@@ -63,13 +63,13 @@ final class KeranjangTable extends PowerGridComponent
     public function fields(): PowerGridFields
     {
         return PowerGrid::fields()
-
-            ->add('nama_barang')
-            ->add('keterangan')
+            ->add('id') 
+            ->add('barang')
             ->add('name')
             ->add('ukuran')
             ->add('jumlah')
             ->add('status')
+            ->add('keterangan')
             ;
             // ->add('created_at');
     }
@@ -77,19 +77,22 @@ final class KeranjangTable extends PowerGridComponent
     public function columns(): array
     {
         return [
+            Column::make('Id', 'id')
+                ->sortable()
+                ->searchable(),
             Column::make('Nama Barang', 'barang')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('User Name', 'name')
+            Column::make('Nama Pembeli', 'name')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Ukuran Berapa', 'ukuran')
-                ->sortable()
-                ->searchable(),
+            // Column::make('Ukuran Barang', 'ukuran')
+            //     ->sortable()
+            //     ->searchable(),
 
-            Column::make('Jumlah', 'jumlah')
+            Column::make('Jumlah Barang', 'jumlah')
                 ->sortable()
                 ->searchable(),
 

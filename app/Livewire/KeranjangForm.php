@@ -6,8 +6,9 @@ use App\Models\Barang;
 use App\Models\Keranjang;
 use App\Models\User;
 use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 
-class KeranjangForm extends Component
+class KeranjangForm extends ModalComponent
 {
     public $keranjang, $jumlah, $status, $barang_id, $ukuran_id, $user_id, $keranjang_id, $user, $barang;
     

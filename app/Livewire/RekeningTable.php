@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Detail;
 use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
@@ -33,19 +34,24 @@ final class RekeningTable extends PowerGridComponent
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
+            Detail::make()
+                ->showCollapseIcon()
+                ->view('details.rekening-detail'),
         ];
     }
 
     public function datasource(): Builder
     {
-        return Rekening::query(
+        return Rekening::query()
 
-        );
+        ;
     }
 
     public function relationSearch(): array
     {
-        return [];
+        return [
+            
+        ];
     }
 
     public function fields(): PowerGridFields
@@ -54,8 +60,8 @@ final class RekeningTable extends PowerGridComponent
             ->add('id')
             ->add('nama_bank')
             ->add('no_rekening')
-            ->add('nama_rekening')
-            ->add('created_at');
+            ->add('nama_rekening');
+            // ->add('created_at')
     }
 
     public function columns(): array

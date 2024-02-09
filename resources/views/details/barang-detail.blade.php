@@ -17,17 +17,10 @@
                 <td class="border px-4 py-2 text-sm font-semibold">Total Terjual</td>
                 <td class="border px-4 py-2">{{ $row->total_terjual }}</td>
             </tr>
-            @if ($row->gambar)
-                <tr>
-                    <td class="border px-4 py-2 text-sm font-semibold">Gambar</td>
-                    <td class="border px-4 py-2">
-                        @php
-                            $gambar = filter_var($row->gambar, FILTER_VALIDATE_URL) ? $row->gambar : asset('storage/' . $row->gambar);
-                        @endphp
-                        <img src="{{ $gambar }}" alt="{{ $row->nama_barang }}" class="w-32 h-32 object-cover">
-                    </td>
-                </tr>
-            @endif
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Gambar</td>
+                <td class="border px-4 py-2"><img src="{{ $row->gambar }}" alt="Gambar" style="width: 100px; height: 100px;"></td>
+            </tr>
         </tbody>
     </table>
 </div>
