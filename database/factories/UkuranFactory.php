@@ -17,7 +17,10 @@ class UkuranFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'barang_id' => $this->faker->randomNumber(1, 10),
+            'ukuran' => $this->faker->randomNumber(1, 10),
+            'stock' => $this->faker->randomNumber(1, 10),
+            'harga' => $this->faker->randomNumber(1, 10),
         ];
     }
 }

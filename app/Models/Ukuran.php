@@ -14,8 +14,8 @@ class Ukuran extends Model
     // Mendefinisikan atribut yang dapat diisi (fillable) oleh pengguna
     protected $fillable = [
         'barang_id', // Ini adalah id barang yang terkait dengan ukuran
-        'nama_ukuran', // Ini adalah nama ukuran
-        'stok', // Ini adalah stok ukuran
+        'ukuran', // Ini adalah nama ukuran
+        'stock', // Ini adalah stok ukuran
         'harga', // Ini adalah harga ukuran
 
     ];

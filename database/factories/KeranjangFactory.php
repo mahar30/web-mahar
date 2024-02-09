@@ -17,7 +17,11 @@ class KeranjangFactory extends Factory
     public function definition(): array
     {
         return [
-            
+            'barang_id' => \App\Models\Barang::all()->random()->id,
+            'user_id' => \App\Models\User::all()->random()->id,
+            'ukuran_id' => \App\Models\Ukuran::all()->random()->id,
+            'jumlah' => $this->faker->randomNumber(),
+            'status' => $this->faker->word,
         ];
     }
 }

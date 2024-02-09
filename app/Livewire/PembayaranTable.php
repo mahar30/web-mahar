@@ -54,9 +54,9 @@ final class PembayaranTable extends PowerGridComponent
     public function relationSearch(): array
     {
         return [
-            'user_name' => 'name',
+            'users.name' => 'user_name',
             'rekening' => 'nama_bank',
-            'transaksi' => ['total pembelian', 'status_transaksi'],
+            // 'transaksi' => ['total pembelian', 'status_transaksi'],
 
 
         ];
@@ -68,7 +68,7 @@ final class PembayaranTable extends PowerGridComponent
             ->add('transaksi_id')
             ->add('user_id')
             ->add('rekening_id')
-            ->add('name')
+            ->add('user_name')
             ->add('foto')
             ->add('total')
             ->add('nama_rekening')
@@ -87,7 +87,7 @@ final class PembayaranTable extends PowerGridComponent
             Column::make('User id', 'user_id')
                 ->sortable()
                 ->searchable(),
-            column::make('Nama ', 'name')
+            column::make('Nama ', 'user_name')
                 ->sortable()
                 ->searchable(),
                 

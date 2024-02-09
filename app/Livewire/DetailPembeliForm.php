@@ -66,7 +66,7 @@ class DetailPembeliForm extends ModalComponent
         $this->detailpembeli = Detailpembeli::all();
         $this->user = User::all();
         if(!is_null($rowId)){
-            $detailpembeli = Detailpembeli::find($rowId);
+            $detailpembeli = Detailpembeli::findOrFail($rowId);
             $this->id = $rowId;
             $this->user_id = $detailpembeli->user_id;
             $this->alamat = $detailpembeli->alamat;

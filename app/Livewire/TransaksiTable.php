@@ -59,7 +59,6 @@ final class TransaksiTable extends PowerGridComponent
     public function fields(): PowerGridFields
     {
         return PowerGrid::fields()
-            ->add('id')
             ->add('user_id')
             ->add('name')
             ->add('kode_transaksi')
@@ -75,9 +74,9 @@ final class TransaksiTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id')
-                ->sortable()
-                ->searchable(),
+            // Column::make('Id', 'id')
+            //     ->sortable()
+            //     ->searchable(),
 
             Column::make('Nama', 'name')
                 ->sortable()
@@ -88,10 +87,6 @@ final class TransaksiTable extends PowerGridComponent
                 ->searchable(),
 
             // Column::make('Total harga', 'total_harga')
-            //     ->sortable()
-            //     ->searchable(),
-
-            // Column::make('Nama pembeli', 'nama_pembeli')
             //     ->sortable()
             //     ->searchable(),
 
@@ -111,9 +106,9 @@ final class TransaksiTable extends PowerGridComponent
             //     ->sortable()
             //     ->searchable(),
 
-            Column::make('Status', 'status')
-                ->sortable()
-                ->searchable(),
+            // Column::make('Status', 'status')
+            //     ->sortable()
+            //     ->searchable(),
 
             // Column::make('Created at', 'created_at_formatted', 'created_at')
             //     ->sortable(),

@@ -43,12 +43,16 @@ final class BarangTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Barang::query();
+        return Barang::query()
+            
+        ;
     }
 
     public function relationSearch(): array
     {
-        return [];
+        return [
+
+        ];
     }
 
     public function fields(): PowerGridFields
@@ -65,7 +69,10 @@ final class BarangTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id'),
+            Column::make('Id', 'id')
+                ->sortable()
+                ->searchable(),
+                
             Column::make('Nama barang', 'nama_barang')
                 ->sortable()
                 ->searchable(),

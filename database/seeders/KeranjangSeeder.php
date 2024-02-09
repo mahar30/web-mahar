@@ -2,18 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Ukuran;
+use App\Models\Keranjang;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UkuranSeeder extends Seeder
+class KeranjangSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-
-        // Menggunakan factory untuk membuat data dummy
-        Ukuran::factory(10)->create();
+        Keranjang::factory(10)->create();
     }
 }
