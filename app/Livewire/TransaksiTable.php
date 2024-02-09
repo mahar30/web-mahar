@@ -83,7 +83,14 @@ final class TransaksiTable extends PowerGridComponent
             Column::make('Nama', 'name')
                 ->sortable()
                 ->searchable(),
-                
+            
+            Column::make('No wa pembeli', 'no_wa_pembeli')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Total Harga', 'total_harga')
+                ->sortable()
+                ->searchable(),
 
             // Column::make('Total harga', 'total_harga')
             //     ->sortable()
@@ -93,17 +100,10 @@ final class TransaksiTable extends PowerGridComponent
             //     ->sortable()
             //     ->searchable(),
 
-            Column::make('No wa pembeli', 'no_wa_pembeli')
-                ->sortable()
-                ->searchable(),
-
             // Column::make('Tipe pembayaran', 'tipe_pembayaran')
             //     ->sortable()
             //     ->searchable(),
 
-            Column::make('Total pembelian', 'total_harga')
-                ->sortable()
-                ->searchable(),
 
             // Column::make('Status', 'status')
             //     ->sortable()

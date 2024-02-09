@@ -14,6 +14,6 @@ class TransaksiSeeder extends Seeder
     public function run(): void
     {
         // Membuat 10 data transaksi
-        Transaksi::factory()->count(10)->create();
+        Transaksi::factory()->count(15)->create();
     }
 }

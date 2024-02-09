@@ -7,7 +7,7 @@
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Nama Pembeli</td>
-                <td class="border px-4 py-2">{{ $row->name }}</td>
+                <td class="border px-4 py-2">{{ $row->name_user }}</td>
             </tr>
             {{-- <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Nama Barang</td>

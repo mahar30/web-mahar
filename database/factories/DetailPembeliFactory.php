@@ -18,7 +18,7 @@ class DetailPembeliFactory extends Factory
     {
         return [
             'user_id' => $this->faker->randomNumber(1, 10),
-            'no_wa' => $this->faker->numerify('#############'),
+            'no_wa' => $this->faker->numerify('##########'),
             'alamat' => $this->faker->address(),
             'tanggaltransaksi_teraakhir' => date('Y-m-d H:i:s'),
             
