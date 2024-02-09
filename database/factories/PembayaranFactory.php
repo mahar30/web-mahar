@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Rekening;
+use App\Models\Transaksi;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,9 +20,9 @@ class PembayaranFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->randomNumber('1', '10'),
-            'transaksi_id' => $this->faker->randomNumber('1', '11'),
-            'rekening_id' => $this->faker->randomNumber('1', '12'),
+            'transaksi_id' => Transaksi::all()->random()->id,
+            'user_id' => User::all()->random()->id,
+            'rekening_id' => Rekening::all()->random()->id,
             'foto' => $this->faker->word,
             'total' => $this->faker->randomFloat(0, 0, 8),
             'nama_rekening' => $this->faker->word,

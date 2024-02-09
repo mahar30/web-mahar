@@ -17,7 +17,10 @@ class RekeningFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id' => $this->faker->randomNumber(1, 10),
+            'nama_rekening' => $this->faker->name,
+            'nama_bank' => $this->faker->company,
+            'no_rekening' => $this->faker->bankAccountNumber,
         ];
     }
 }

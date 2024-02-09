@@ -69,8 +69,7 @@ class BarangForm extends ModalComponent
 
         $this->barang = Barang::all();
         if (!is_null($rowId)) {
-            $barang = Barang::find($rowId);
-            if ($barang) {
+                $barang = Barang::find($rowId);
                 $this->id = $barang->id;
                 $this->nama_barang = $barang->nama_barang;
                 $this->keterangan = $barang->keterangan;
@@ -78,7 +77,7 @@ class BarangForm extends ModalComponent
                 $this->status = $barang->status;
                 $this->total_terjual = $barang->total_terjual;
             }
-        }
+        
     }
     
 }

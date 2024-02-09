@@ -17,11 +17,11 @@ return new class extends Migration
             // Ini adalah foreign key yang mengacu pada kolom 'user_id' pada tabel 'user' dengan penghapusan data 'cascade'
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             // Ini adalah kolom untuk menyimpan alamat dengan panjang maksimal 255 karakter
-            $table->string('alamat', 255);
+            $table->string('alamat', 100);
             // Ini adalah kolom untuk menyimpan nomor WhatsApp dengan panjang maksimal 15 karakter
             $table->string('no_wa', 15)->nullable();
             // Ini adalah kolom untuk menyimpan tanggal transaksi terakhir dalam format DateTime
-            $table->dateTime('tanggaltransaksi_teraakhir');
+            $table->date('tanggaltransaksi_teraakhir');
             // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });

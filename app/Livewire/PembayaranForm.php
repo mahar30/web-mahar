@@ -102,8 +102,6 @@ class PembayaranForm extends ModalComponent
             $this->total = $pembayaran->total;
             $this->nama_rekening = $pembayaran->nama_rekening;
             $this->status = $pembayaran->status;
-            
-
         }
     }
 }

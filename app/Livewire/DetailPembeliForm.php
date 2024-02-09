@@ -14,7 +14,7 @@ class DetailPembeliForm extends ModalComponent
     {
         $users = User::all();
         $detailpembeli = Detailpembeli::all();
-        return view('livewire.detail-pembeli-form', compact('users', 'detailpembeli'));
+        return view('livewire.detailpembeli-form', compact('users', 'detailpembeli'));
     }
 
     public function resetCreateForm()

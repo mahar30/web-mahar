@@ -21,7 +21,7 @@ class Detailpembeli extends Model
 
     // Mendefinisikan tipe data untuk atribut 'tanggal_transaksi_teraakhir' sebagai datetime
     protected $casts = [
-        'tanggaltransaksi_teraakhir' => 'datetime',
+        'tanggaltransaksi_teraakhir' => 'date',
     ];
 
     // Mendefinisikan hubungan "belongsTo" dengan model User
@@ -30,4 +30,5 @@ class Detailpembeli extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
 }

@@ -16,8 +16,6 @@ class Transaksi extends Model
         'user_id', // Ini adalah ID dari pengguna yang melakukan transaksi
         'kode_transaksi', // Ini adalah kode unik transaksi
         'total_harga', // Ini adalah total harga transaksi
-        'nama_pembeli', // Ini adalah nama pembeli dalam transaksi
-        'alamat_pembeli', // Ini adalah alamat pembeli dalam transaksi
         'no_wa_pembeli', // Ini adalah nomor WhatsApp pembeli dalam transaksi
         'tipe_pembayaran', // Ini adalah tipe pembayaran (misalnya, transfer bank atau kartu kredit)
         'total_pembelian', // Ini adalah total pembelian dalam transaksi
@@ -45,5 +43,6 @@ class Transaksi extends Model
         return $this->hasMany(Detailtransaksi::class);
     }
 
+    
     
 }
