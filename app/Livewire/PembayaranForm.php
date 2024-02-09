@@ -39,22 +39,17 @@ class PembayaranForm extends ModalComponent
             'transaksi_id' => 'required',
             'user_id' => 'required',
             'rekening_id' => 'required',
-            'no_rekening' => 'required',
             'foto' => 'required',
-            'total' => 'required',
             'nama_rekening' => 'required',
-            'status' => 'required',
+
         ]);
 
         Pembayaran::create([
             'transaksi_id' => $this->transaksi_id,
             'user_id' => $this->user_id,
             'rekening_id' => $this->rekening_id,
-            'no_rekening' => $this->no_rekening,
             'foto' => $this->foto,
-            'total' => $this->total,
             'nama_rekening' => $this->nama_rekening,
-            'status' => $this->status,
         ]);
         $this->resetInput();
 
@@ -64,22 +59,16 @@ class PembayaranForm extends ModalComponent
                 'transaksi_id' => $this->transaksi_id,
                 'user_id' => $this->user_id,
                 'rekening_id' => $this->rekening_id,
-                'no_rekening' => $this->no_rekening,
                 'foto' => $this->foto,
-                'total' => $this->total,
                 'nama_rekening' => $this->nama_rekening,
-                'status' => $this->status,
             ]);
         } else {
             $pembayaran = Pembayaran::create([
                 'transaksi_id' => $this->transaksi_id,
                 'user_id' => $this->user_id,
                 'rekening_id' => $this->rekening_id,
-                'no_rekening' => $this->no_rekening,
                 'foto' => $this->foto,
-                'total' => $this->total,
                 'nama_rekening' => $this->nama_rekening,
-                'status' => $this->status,
             ]);
         }
     }
@@ -97,11 +86,8 @@ class PembayaranForm extends ModalComponent
             $this->transaksi_id = $pembayaran->transaksi_id;
             $this->user_id = $pembayaran->user_id;
             $this->rekening_id = $pembayaran->rekening_id;
-            $this->no_rekening = $pembayaran->no_rekening;
             $this->foto = $pembayaran->foto;
-            $this->total = $pembayaran->total;
             $this->nama_rekening = $pembayaran->nama_rekening;
-            $this->status = $pembayaran->status;
         }
     }
 }

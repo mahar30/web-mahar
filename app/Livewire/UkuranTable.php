@@ -78,7 +78,7 @@ final class UkuranTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Ukuran', 'ukuran')
+            Column::make('Ukuran(cm³)', 'ukuran')
                 ->sortable()
                 ->searchable(),
                 

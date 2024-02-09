@@ -46,7 +46,7 @@ final class PembayaranTable extends PowerGridComponent
         ->leftJoin('users', 'pembayaran.user_id', '=', 'users.id')
         ->leftJoin('rekening', 'pembayaran.rekening_id', '=', 'rekening.id')
         ->leftJoin('transaksi', 'pembayaran.transaksi_id', '=', 'transaksi.id')
-        ->select('pembayaran.*', 'users.name as name', 'rekening.nama_bank as nama_bank', 'transaksi.total_pembelian as total pembelian ', 'transaksi.status as status_transaksi')
+        ->select('pembayaran.*', 'users.name as name', 'rekening.nama_bank as nama_bank', 'transaksi.total_harga as total_harga ', 'transaksi.status as status_transaksi')
 
         ;
     }
@@ -56,7 +56,7 @@ final class PembayaranTable extends PowerGridComponent
         return [
             'users.name' => 'name',
             'rekening' => 'nama_bank',
-            // 'transaksi' => ['total pembelian', 'status_transaksi'],
+            'transaksi' => ['total_harga', 'status_transaksi'],
 
 
         ];
@@ -71,9 +71,9 @@ final class PembayaranTable extends PowerGridComponent
             ->add('rekening_id')
             ->add('name')
             ->add('foto')
-            ->add('total')
+            ->add('total_harga')
+            ->add('status_transaksi')
             ->add('nama_rekening')
-            ->add('status')
             ;
     }
 
@@ -87,24 +87,12 @@ final class PembayaranTable extends PowerGridComponent
             column::make('Nama ', 'name')
                 ->sortable()
                 ->searchable(),
-
-            Column::make('Id Transaksi', 'transaksi_id')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('Id user ', 'user_id')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('Id Rekening', 'rekening_id')
-                ->sortable()
-                ->searchable(),
             
             // Column::make('Foto', 'foto')
             //     ->sortable()
             //     ->searchable(),
 
-            // Column::make('Total', 'total')
+            // Column::make('Total', 'total_harga')
             //     ->sortable()
             //     ->searchable(),
 

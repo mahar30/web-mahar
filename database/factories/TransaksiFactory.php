@@ -20,11 +20,8 @@ class TransaksiFactory extends Factory
         return [
             'user_id' => User::all()->random()->id,
             // 'name' => $this->faker->randomElement(),
-            'kode_transaksi' => $this->faker->regexify('[A-Za-z0-9]{20}'), // menghasilkan string acak dengan panjang 20
             'total_harga' => $this->faker->randomNumber(),
-            'no_wa_pembeli' => $this->faker->e164PhoneNumber, // menghasilkan nomor telepon internasional
-            'tipe_pembayaran' => $this->faker->words(3, true), // menghasilkan 3 kata acak
-            'total_pembelian' => $this->faker->randomNumber(),
+            'tipe_pembayaran' => $this->faker->randomElement(['tunai', 'non tunai']),// menghasilkan 3 kata acak
             'status' => $this->faker->words(3, true), // menghasilkan 3 kata acak
         ];
     }

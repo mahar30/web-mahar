@@ -25,10 +25,6 @@
                 <td class="border px-4 py-2 text-sm font-semibold">Total Harga</td>
                 <td class="border px-4 py-2">{{ $row->total_harga }}</td>
             </tr>
-            <tr>
-                <td class="border px-4 py-2 text-sm font-semibold"> Total Pembelian </td>
-                <td class="border px-4 py-2">{{ $row->total_pembelian }}</td>
-            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Status</td>
                 <td class="border px-4 py-2">{{ $row->status }}</td>
         </tbody>

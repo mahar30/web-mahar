@@ -14,11 +14,8 @@ class Transaksi extends Model
     // Mendefinisikan atribut yang dapat diisi (fillable) oleh pengguna
     protected $fillable = [
         'user_id', // Ini adalah ID dari pengguna yang melakukan transaksi
-        'kode_transaksi', // Ini adalah kode unik transaksi
         'total_harga', // Ini adalah total harga transaksi
-        'no_wa_pembeli', // Ini adalah nomor WhatsApp pembeli dalam transaksi
         'tipe_pembayaran', // Ini adalah tipe pembayaran (misalnya, transfer bank atau kartu kredit)
-        'total_pembelian', // Ini adalah total pembelian dalam transaksi
         'status', // Ini adalah status transaksi (misalnya, dalam proses atau berhasil)
     ];
 

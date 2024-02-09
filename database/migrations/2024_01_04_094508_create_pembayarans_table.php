@@ -24,10 +24,6 @@ return new class extends Migration
             $table->string('nama_rekening', 100);
             // Ini adalah kolom untuk menyimpan nama file foto dengan panjang maksimal 255 karakter
             $table->string('foto', 255);
-            // Ini adalah kolom untuk menyimpan total dalam bentuk bilangan bulat (integer)
-            $table->integer('total');
-            // Ini adalah kolom untuk menyimpan status dengan panjang maksimal 100 karakter
-            $table->string('status', 100);
             // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });
