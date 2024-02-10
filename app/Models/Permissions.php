@@ -23,7 +23,7 @@ class Permissions extends Model
     // Parameter keempat adalah kolom ID izin dalam tabel pivot
     public function roles()
     {
-        return $this->belongsToMany(Roles::class, 'roles_permissions', 'permission_id', 'role_id');
+        return $this->belongsToMany(Roles::class, 'role_permissions', 'permission_id', 'role_id');
     }
 
 }
