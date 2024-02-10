@@ -8,8 +8,9 @@ use LivewireUI\Modal\ModalComponent;
 
 class BarangForm extends ModalComponent
 {
+    public Barang $barang;
 
-    public $nama_barang, $keterangan, $gambar, $status, $total_terjual, $id, $barang;
+    public $nama_barang, $keterangan, $gambar, $status, $total_terjual, $id;
     public function render()
     {
         $barang = Barang::all();
@@ -67,7 +68,7 @@ class BarangForm extends ModalComponent
     public function mount($rowId = null)
     {
 
-        $this->barang = Barang::all();
+        // $this->barang = Barang::all();
         if (!is_null($rowId)) {
                 $barang = Barang::find($rowId);
                 $this->id = $barang->id;

@@ -62,7 +62,4 @@ Route::middleware([
         return view('transaksi');
     })->name('transaksi');
 
-    Route::get('/ukuran', function () {
-        return view('ukuran');
-    })->name('ukuran');
 });

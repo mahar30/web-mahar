@@ -9,7 +9,7 @@ use LivewireUI\Modal\ModalComponent;
 
 class TransaksiForm extends ModalComponent
 {
-    public $user, $id, $user_id, $transaksi, $kode_transaksi, $total_harga, $no_wa_pembeli, $tipe_pembayaran, $total_pembelian, $status;
+    public $user, $id, $user_id, $transaksi, $kode_transaksi, $total_harga, $tipe_pembayaran, $total_pembelian, $status;
     public function render()
     {
         $user = User::all();
@@ -22,7 +22,6 @@ class TransaksiForm extends ModalComponent
         $this->user_id = '';
         $this->kode_transaksi = '';
         $this->total_harga = '';
-        $this->no_wa_pembeli = '';
         $this->tipe_pembayaran = '';
         $this->total_pembelian = '';
         $this->status = '';
@@ -34,7 +33,6 @@ class TransaksiForm extends ModalComponent
             'user_id' => 'required',
             'kode_transaksi' => 'required',
             'total_harga' => 'required',
-            'no_wa_pembeli' => 'required',
             'tipe_pembayaran' => 'required',
             'total_pembelian' => 'required',
             'status' => 'required',
@@ -43,8 +41,7 @@ class TransaksiForm extends ModalComponent
         Transaksi::create([
             'user_id' => $this->user_id,
             'kode_transaksi' => $this->kode_transaksi,
-            'total_harga' => $this->total_harga,
-            'no_wa_pembeli' => $this->no_wa_pembeli,
+            'total_harga' => $this->total_harga,,
             'tipe_pembayaran' => $this->tipe_pembayaran,
             'total_pembelian' => $this->total_pembelian,
             'status' => $this->status,
@@ -57,7 +54,6 @@ class TransaksiForm extends ModalComponent
         $this->user_id = '';
         $this->kode_transaksi = '';
         $this->total_harga = '';
-        $this->no_wa_pembeli = '';
         $this->tipe_pembayaran = '';
         $this->total_pembelian = '';
         $this->status = '';
@@ -73,7 +69,6 @@ class TransaksiForm extends ModalComponent
             $this->user_id = $transaksi->user_id;
             $this->kode_transaksi = $transaksi->kode_transaksi;
             $this->total_harga = $transaksi->total_harga;
-            $this->no_wa_pembeli = $transaksi->no_wa_pembeli;
             $this->tipe_pembayaran = $transaksi->tipe_pembayaran;
             $this->total_pembelian = $transaksi->total_pembelian;
             $this->status = $transaksi->status;

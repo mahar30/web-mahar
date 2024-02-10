@@ -89,7 +89,7 @@ final class DetailpembeliTable extends PowerGridComponent
                 ->searchable()  
                 ->sortable(),
 
-            column::make('Tanggal Transaksi Terakhir', 'tanggaltransaksi_teraakhir')
+            column::make('Tanggal Transaksi ', 'tanggaltransaksi_teraakhir')
                 ->searchable()
                 ->sortable(),
 

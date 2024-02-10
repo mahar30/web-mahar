@@ -30,5 +30,9 @@ class Detailpembeli extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
+    public function getTanggaltransaksiTeraakhirAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->format('Y-m-d');
+    }
 }
