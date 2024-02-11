@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('nama_barang',   255);
             // Ini adalah kolom untuk menyimpan keterangan
             $table->text('keterangan');
+            // Ini adalah kolom untuk menyimpan stock
+            $table->integer('stock');
             // Ini adalah kolom untuk menyimpan gambar dengan panjang maksimal 255 karakter
             $table->string('gambar', 255);
             // Ini adalah kolom untuk menyimpan status dengan panjang maksimal 100 karakter

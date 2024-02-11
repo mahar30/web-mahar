@@ -10,17 +10,28 @@
                 <td class="border px-4 py-2">{{ $row->keterangan }}</td>
             </tr>
             <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Stock</td>
+                <td class="border px-4 py-2">{{ $row->stock }}</td>
+            </tr>
+            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">status</td>
                 <td class="border px-4 py-2">{{ $row->status }}</td>
             </tr>
-            <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Total Terjual</td>
-                <td class="border px-4 py-2">{{ $row->total_terjual }}</td>
-            </tr>
-            <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Gambar</td>
-                <td class="border px-4 py-2"><img src="{{ $row->gambar }}" alt="Gambar" style="width: 100px; height: 100px;"></td>
-            </tr>
+            @if ($row->gambar)
+                <tr>
+                    <td class="border px-4 py-2 text-sm font-semibold">Gambar Barang</td>
+                    <td class="border px-4 py-2">
+                        <img src="{{ asset('storage/' . $row->gambar) }}" alt="Gambar"
+                            class="w-32 h-32 object-cover mb-5">
+                        <x-button>
+                            <a href="{{ asset('storage/' . $row->gambar) }}" download>
+                                Download
+                            </a>
+                        </x-button>
+                    </td>
+
+                </tr>
+            @endif
         </tbody>
     </table>
 </div>
