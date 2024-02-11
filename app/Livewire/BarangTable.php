@@ -43,16 +43,12 @@ final class BarangTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Barang::query()
-            
-        ;
+        return Barang::query();
     }
 
     public function relationSearch(): array
     {
-        return [
-
-        ];
+        return [];
     }
 
     public function fields(): PowerGridFields
@@ -62,8 +58,7 @@ final class BarangTable extends PowerGridComponent
             ->add('nama_barang')
             ->add('keterangan')
             ->add('gambar')
-            ->add('status')
-            ->add('total_terjual');
+            ->add('status');
     }
 
     public function columns(): array
@@ -72,27 +67,14 @@ final class BarangTable extends PowerGridComponent
             Column::make('Id', 'id')
                 ->sortable()
                 ->searchable(),
-                
+
             Column::make('Nama barang', 'nama_barang')
                 ->sortable()
                 ->searchable(),
 
-            // Column::make('Keterangan', 'keterangan')
-            //     ->sortable()
-            //     ->searchable(),
-
-            // Column::make('Gambar', 'gambar')
-            //     ->sortable()
-            //     ->searchable(),
-
             Column::make('Status', 'status')
                 ->sortable()
                 ->searchable(),
-
-            Column::make('Total terjual', 'total_terjual')
-                ->sortable()
-                ->searchable(),
-
 
             Column::action('Action')
         ];
@@ -100,26 +82,19 @@ final class BarangTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [
-        ];
-    }
-
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
-    {
-        $this->js('alert('.$rowId.')');
+        return [];
     }
 
     public function actions(\App\Models\Barang $row): array
     {
         return [
             Button::add('add-barang')
-            ->slot('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6b7280" class="w-5 h-5">
+                ->slot('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6b7280" class="w-5 h-5">
             <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
             </svg>')
-            ->id()
-            ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-            ->openModal('barang-form', ['barang_id' => $row->id]),
+                ->id()
+                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->openModal('barang-form', ['barang_id' => $row->id]),
             Button::add('edit')
                 ->slot('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
@@ -143,13 +118,13 @@ final class BarangTable extends PowerGridComponent
     {
         return [
             Button::add('add-barang')
-            ->slot(__('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6b7280" class="w-5 h-5">
+                ->slot(__('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6b7280" class="w-5 h-5">
             <path fill-rule="evenodd" d="M5.625 1.5H9a3.75 3.75 0 0 1 3.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 0 1 3.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 0 1-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875ZM12.75 12a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V18a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V12Z" clip-rule="evenodd" />
             <path d="M14.25 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 16.5 7.5h-1.875a.375.375 0 0 1-.375-.375V5.25Z" />
             </svg>
             '))
-            ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700 w-full')
-            ->openModal('barang-form', []),
+                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700 w-full')
+                ->openModal('barang-form', []),
             Button::add('add-barang')
                 ->slot(__('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -169,8 +144,8 @@ final class BarangTable extends PowerGridComponent
 
     protected function getListeners()
     {
-            return array_merge(
-                parent::getListeners(),
+        return array_merge(
+            parent::getListeners(),
             [
                 'exportPdf',
                 'delete',
@@ -205,16 +180,4 @@ final class BarangTable extends PowerGridComponent
         $barang->user()->detach();
         $barang->delete();
     }
-
-    /*
-    public function actionRules($row): array
-    {
-       return [
-            // Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($row) => $row->id === 1)
-                ->hide(),
-        ];
-    }
-    */
 }

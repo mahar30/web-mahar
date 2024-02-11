@@ -22,8 +22,6 @@ return new class extends Migration
             $table->string('gambar', 255);
             // Ini adalah kolom untuk menyimpan status dengan panjang maksimal 100 karakter
             $table->string('status', 100);
-            // Ini adalah kolom untuk menyimpan total terjual dengan panjang maksimal 255 karakter
-            $table->integer('total_terjual');
             //ini adalah kolom timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });

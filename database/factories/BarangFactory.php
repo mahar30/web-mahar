@@ -21,7 +21,6 @@ class BarangFactory extends Factory
             'keterangan' => $this->faker->text,
             'gambar' => $this->faker->imageUrl(640, 480), // menghasilkan URL ke gambar acak dengan lebar 640px dan tinggi 480px
             'status' => $this->faker->randomElement(['tersedia', 'habis']),
-            'total_terjual' => $this->faker->randomNumber(2),
         ];
     }
 }
