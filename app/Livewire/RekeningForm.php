@@ -9,7 +9,8 @@ use Masmerise\Toaster\Toastable;
 class RekeningForm extends ModalComponent
 {
     use Toastable;
-    public $rekening, $nama_bank, $no_rekening, $nama_rekening;
+    public Rekening $rekening;
+    public $nama_bank, $no_rekening, $nama_rekening;
 
     public function render()
     {
