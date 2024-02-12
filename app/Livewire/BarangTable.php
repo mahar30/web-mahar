@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Barang;
+use App\Models\Ukuran;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -150,6 +151,7 @@ final class BarangTable extends PowerGridComponent
                 'exportPdf',
                 'delete',
                 'barangUpdated' => '$refresh',
+                'ukuranUpdated' => '$refresh',
             ]
         );
     }
@@ -182,5 +184,12 @@ final class BarangTable extends PowerGridComponent
         }
         $barang->delete();
         $this->success('Barang berhasil dihapus');
+    }
+
+    public function deleteUkuran($ukuran_id)
+    {
+        $ukuran = Ukuran::findOrFail($ukuran_id);
+        $ukuran->delete();
+        $this->success('Ukuran berhasil dihapus');
     }
 }
