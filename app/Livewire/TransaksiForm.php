@@ -9,69 +9,60 @@ use LivewireUI\Modal\ModalComponent;
 
 class TransaksiForm extends ModalComponent
 {
-    public $user, $id, $user_id, $transaksi, $kode_transaksi, $total_harga, $tipe_pembayaran, $total_pembelian, $status;
+    public Transaksi $transaksi;
+    public $user, $id, $user_id, $total_harga, $tipe_pembayaran, $status;
+
+    public $updateingStatusOnly = false;
+
     public function render()
     {
         $user = User::all();
-        $transaksi = Transaksi::all();
-        return view('livewire.transaksi-form', compact('user', 'transaksi'));
+        return view('livewire.transaksi-form', compact('user'));
     }
+
+    public function switchToStatusOnlyMode()
+    {
+        $this->updateingStatusOnly = true;
+    }
+
+    public function switchToCreateOrUpdateMode()
+    {
+        $this->updateingStatusOnly = false;
+    }
+
+    protected $rules = [
+        'user_id' => 'required|exists:users,id',
+        'total_harga' => 'required',
+        'tipe_pembayaran' => 'required',
+        'status' => 'required',
+    ];
 
     public function resetCreateForm()
     {
         $this->user_id = '';
-        $this->kode_transaksi = '';
         $this->total_harga = '';
         $this->tipe_pembayaran = '';
-        $this->total_pembelian = '';
         $this->status = '';
     }
 
     public function store()
     {
-        $this->validate([
-            'user_id' => 'required',
-            'kode_transaksi' => 'required',
-            'total_harga' => 'required',
-            'tipe_pembayaran' => 'required',
-            'total_pembelian' => 'required',
-            'status' => 'required',
-        ]);
+        $validated = $this->validate();
+        $this->transaksi->fill($validated);
+        $this->transaksi->save();
 
-        Transaksi::create([
-            'user_id' => $this->user_id,
-            'kode_transaksi' => $this->kode_transaksi,
-            'total_harga' => $this->total_harga,,
-            'tipe_pembayaran' => $this->tipe_pembayaran,
-            'total_pembelian' => $this->total_pembelian,
-            'status' => $this->status,
-        ]);
-        $this->resetInput();
+        $this
     }
 
-    private function resetInput()
+    public function mount($rowId = null, $updateingStatusOnly = false)
     {
-        $this->user_id = '';
-        $this->kode_transaksi = '';
-        $this->total_harga = '';
-        $this->tipe_pembayaran = '';
-        $this->total_pembelian = '';
-        $this->status = '';
-    }
-
-    public function mount($id)
-    {
-        $this->user = User::all();
-        $this-> transaksi = Transaksi::all();
-        if(!is_null($id)){
-            $transaksi = Transaksi::find($id);
-            $this->id = $id;
-            $this->user_id = $transaksi->user_id;
-            $this->kode_transaksi = $transaksi->kode_transaksi;
-            $this->total_harga = $transaksi->total_harga;
-            $this->tipe_pembayaran = $transaksi->tipe_pembayaran;
-            $this->total_pembelian = $transaksi->total_pembelian;
-            $this->status = $transaksi->status;
+        $this->updateingStatusOnly = $updateingStatusOnly;
+        if ($rowId) {
+            $this->transaksi = Transaksi::find($rowId);
+            $this->user_id = $this->transaksi->user_id;
+            $this->total_harga = $this->transaksi->total_harga;
+            $this->tipe_pembayaran = $this->transaksi->tipe_pembayaran;
+            $this->status = $this->transaksi->status;
         }
     }
 }
