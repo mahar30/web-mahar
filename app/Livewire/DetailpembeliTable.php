@@ -52,7 +52,7 @@ final class DetailpembeliTable extends PowerGridComponent
     public function relationSearch(): array
     {
         return [
-            'user_name' => 'name',
+            'user' => 'name',
 
         ];
     }
@@ -89,12 +89,6 @@ final class DetailpembeliTable extends PowerGridComponent
     public function filters(): array
     {
         return [];
-    }
-
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
-    {
-        $this->js('alert(' . $rowId . ')');
     }
 
     public function actions(\App\Models\Detailpembeli $row): array
