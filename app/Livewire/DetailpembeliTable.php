@@ -6,6 +6,7 @@ use App\Models\Detailpembeli;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Detail;
@@ -21,6 +22,7 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class DetailpembeliTable extends PowerGridComponent
 {
     use WithExport;
+    use Toastable;
 
     public function setUp(): array
     {
@@ -44,9 +46,7 @@ final class DetailpembeliTable extends PowerGridComponent
     {
         return Detailpembeli::query()
             ->leftJoin('users', 'detailpembeli.user_id', '=', 'users.id')
-            ->select('detailpembeli.*', 'users.name as name')
-
-        ;
+            ->select('detailpembeli.*', 'users.name as name');
     }
 
     public function relationSearch(): array
@@ -64,10 +64,7 @@ final class DetailpembeliTable extends PowerGridComponent
             ->add('name')
             ->add('alamat')
             ->add('no_wa')
-            ->add('tanggaltransaksi_teraakhir')
-            ->add('action')
-
-        ;
+            ->add('action');
     }
 
     public function columns(): array
@@ -81,18 +78,9 @@ final class DetailpembeliTable extends PowerGridComponent
                 ->searchable()
                 ->sortable(),
 
-            // Column::make('Alamat', 'alamat')
-            //     ->searchable()
-            //     ->sortable(),
-
             column::make('No Wa Pembeli', 'no_wa')
-                ->searchable()  
-                ->sortable(),
-
-            column::make('Tanggal Transaksi ', 'tanggaltransaksi_teraakhir')
                 ->searchable()
                 ->sortable(),
-
 
             Column::action('Action')
         ];
@@ -100,15 +88,13 @@ final class DetailpembeliTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [
-
-        ];
+        return [];
     }
 
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert('.$rowId.')');
+        $this->js('alert(' . $rowId . ')');
     }
 
     public function actions(\App\Models\Detailpembeli $row): array
@@ -155,8 +141,8 @@ final class DetailpembeliTable extends PowerGridComponent
 
     protected function getListeners()
     {
-            return array_merge(
-                parent::getListeners(),
+        return array_merge(
+            parent::getListeners(),
             [
                 'exportPdf',
                 'delete',
@@ -187,8 +173,7 @@ final class DetailpembeliTable extends PowerGridComponent
     public function delete($rowId)
     {
         $detailpembeli = Detailpembeli::findOrFail($rowId);
-        // Detach all associated users
-        $detailpembeli->user()->detach();
         $detailpembeli->delete();
+        $this->success('Data Detail Pembeli berhasil dihapus');
     }
 }

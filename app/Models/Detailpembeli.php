@@ -16,12 +16,6 @@ class Detailpembeli extends Model
         'user_id', // Ini adalah ID dari pengguna yang terkait dengan detail pembeli
         'alamat', // Ini adalah alamat dari pembeli
         'no_wa', // Ini adalah nomor WhatsApp dari pembeli
-        'tanggaltransaksi_teraakhir', // Ini adalah tanggal transaksi terakhir dalam format datetime
-    ];
-
-    // Mendefinisikan tipe data untuk atribut 'tanggal_transaksi_teraakhir' sebagai datetime
-    protected $casts = [
-        'tanggaltransaksi_teraakhir' => 'date',
     ];
 
     // Mendefinisikan hubungan "belongsTo" dengan model User
@@ -29,10 +23,5 @@ class Detailpembeli extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function getTanggaltransaksiTeraakhirAttribute($value)
-    {
-        return \Carbon\Carbon::parse($value)->format('Y-m-d');
     }
 }
