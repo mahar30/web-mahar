@@ -46,20 +46,14 @@ Route::middleware([
         return view('detailpembeli');
     })->name('detailpembeli');
 
-    Route::get('/keranjang', function () {
-        return view('keranjang');
-    })->name('keranjang');
-
     Route::get('/pembayaran', function () {
         return view('pembayaran');
     })->name('pembayaran');
 
     Route::get('/rekening', function () {
         return view('rekening');
-
     })->name('rekening');
     Route::get('/transaksi', function () {
         return view('transaksi');
     })->name('transaksi');
-
 });
