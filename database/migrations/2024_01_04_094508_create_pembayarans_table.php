@@ -20,10 +20,10 @@ return new class extends Migration
             $table->foreignId('rekening_id')->constrained('rekening')->onDelete('cascade');
             // Ini adalah foreign key yang mengacu pada kolom 'transaksi_id' pada tabel 'transaksi' dengan penghapusan data 'cascade'
             $table->foreignId('transaksi_id')->constrained('transaksi')->onDelete('cascade');
-            // Ini adalah kolom untuk menyimpan nama rekening dengan panjang maksimal 100 karakter
-            $table->string('nama_rekening', 100);
             // Ini adalah kolom untuk menyimpan nama file foto dengan panjang maksimal 255 karakter
             $table->string('foto', 255);
+            // ini adalah kolom untuk menyimpan status pembayaran
+            $table->string('status', 100);
             // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });

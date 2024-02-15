@@ -17,13 +17,13 @@
                 <td class="border px-4 py-2 text-sm font-semibold">Total Harga</td>
                 <td class="border px-4 py-2">{{ $row->total_harga }}</td>
             </tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Status</td>
-                <td class="border px-4 py-2">{{ $row->status }}</td>
+            <td class="border px-4 py-2 text-sm font-semibold">Status</td>
+            <td class="border px-4 py-2">{{ $row->status }}</td>
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Detail Transaksi</td>
                 <td class="border px-4 py-2">
-                    @foreach($row->detailtransaksi as $detail)
+                    @foreach ($row->detailtransaksi as $detail)
                         <table class="table-auto w-full mb-2">
                             <tbody>
                                 <tr>
@@ -49,7 +49,8 @@
                                 <tr>
                                     <td class="border px-4 py-2 text-sm font-semibold">Foto Barang</td>
                                     <td class="border px-4 py-2">
-                                        <img src="{{ $detail->foto_barang }}" alt="Foto" class="w-24 h-24 object-cover">
+                                        <img src="{{ $detail->foto_barang }}" alt="Foto"
+                                            class="w-24 h-24 object-cover">
                                     </td>
                                 </tr>
                             </tbody>

@@ -6,13 +6,16 @@ use App\Models\Transaksi;
 use App\Models\User;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
+use Masmerise\Toaster\Toastable;
 
 class TransaksiForm extends ModalComponent
 {
+    use Toastable;
+
     public Transaksi $transaksi;
     public $user, $id, $user_id, $total_harga, $tipe_pembayaran, $status;
 
-    public $updateingStatusOnly = false;
+    public $updatingStatusOnly = false;
 
     public function render()
     {
@@ -22,12 +25,12 @@ class TransaksiForm extends ModalComponent
 
     public function switchToStatusOnlyMode()
     {
-        $this->updateingStatusOnly = true;
+        $this->updatingStatusOnly = true;
     }
 
     public function switchToCreateOrUpdateMode()
     {
-        $this->updateingStatusOnly = false;
+        $this->updatingStatusOnly = false;
     }
 
     protected $rules = [
@@ -51,18 +54,26 @@ class TransaksiForm extends ModalComponent
         $this->transaksi->fill($validated);
         $this->transaksi->save();
 
-        $this
+        $this->success($this->transaksi->wasRecentlyCreated ? 'Transaksi berhasil fibuat' : 'Transaksi berhasil diubah');
+
+        $this->closeModalWithEvents([
+            TransaksiTable::class => 'transaksiUpdated'
+        ]);
     }
 
-    public function mount($rowId = null, $updateingStatusOnly = false)
+    public function mount($rowId = null, $updatingStatusOnly = false)
     {
-        $this->updateingStatusOnly = $updateingStatusOnly;
+        $this->updatingStatusOnly = $updatingStatusOnly;
+        $this->user = User::all();
         if ($rowId) {
             $this->transaksi = Transaksi::find($rowId);
+
+            if ($updatingStatusOnly) {
+                $this->status = $this->transaksi->status;
+            }
             $this->user_id = $this->transaksi->user_id;
             $this->total_harga = $this->transaksi->total_harga;
             $this->tipe_pembayaran = $this->transaksi->tipe_pembayaran;
-            $this->status = $this->transaksi->status;
         }
     }
 }

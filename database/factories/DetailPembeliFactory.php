@@ -21,8 +21,6 @@ class DetailPembeliFactory extends Factory
             'user_id' => User::all()->random()->id,
             'no_wa' => $this->faker->numerify('##########'),
             'alamat' => $this->faker->address(),
-            'tanggaltransaksi_teraakhir' => \Carbon\Carbon::now()->startOfDay()->toDateString(),
-            
         ];
     }
 }
