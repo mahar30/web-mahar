@@ -31,19 +31,7 @@
                             <span class="text-red-500">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="mb-4">
-                        <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Tipe Pembayaran</label>
-                        <select wire:model="tipe_pembayaran"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="tipe_pembayaran">
-                            <option value="">Pilih Tipe Pembayaran</option>
-                            <option value="Aktif">Tunai</option>
-                            <option value="Nonaktif">Non Tunai</option>
-                        </select>
-                        @error('tipe_pembayaran')
-                            <span class="text-red-500">{{ $message }}</span>
-                        @enderror
-                    </div>
+
                 @endif
                 @if ($updatingStatusOnly)
                     <div class="mb-4">
