@@ -2,6 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Barang;
+use App\Models\Ukuran;
+use App\Models\UkuranCustom;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,11 +21,12 @@ class KeranjangFactory extends Factory
     public function definition(): array
     {
         return [
-            'barang_id' => \App\Models\Barang::all()->random()->id,
-            'user_id' => \App\Models\User::all()->random()->id,
-            'ukuran_id' => \App\Models\Ukuran::all()->random()->id,
+            'barang_id' => Barang::all()->random()->id,
+            'user_id' => User::all()->random()->id,
+            'ukuran_id' => Ukuran::all()->random()->id,
+            'ukuran_custom_id' => UkuranCustom::all()->random()->id,
             'jumlah' => $this->faker->randomNumber(),
-            'status' => $this->faker->word,
+            'status' => $this->faker->randomElement(['Aktif', 'Tidak Aktif']),
         ];
     }
 }

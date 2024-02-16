@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Transaksi;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,27 +15,14 @@ class DetailtransaksiFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
-        $minDetail = 1;
-        $maxDetail = 50;
-
-        $totalDetail = 0;
-        $detailTransaksi = [];
-
-        while ($totalDetail < $maxDetail) {
-            $detailTransaksi[] = [
-                'transaksi_id' => function () {
-                    return App\Models\Transaksi::all()->random()->id;
-                },
-                'ukuran' => $this->faker->word,
-                'jumlah' => $this->faker->numberBetween($minDetail, 10),
-                'total' => $this->faker->randomNumber(0),
-            ];
-
-            $totalDetail += $this->faker->numberBetween($minDetail, 10);
-        }
-
-        return $detailTransaksi;
+        return [
+            'transaksi_id' => Transaksi::factory(),
+            'nama_barang' => $this->faker->word,
+            'jumlah' => $this->faker->randomNumber(2),
+            'ukuran' => $this->faker->randomElement(['Kecil', 'Sedang', 'Besar']),
+            'harga' => $this->faker->randomNumber(6),
+        ];
     }
 }

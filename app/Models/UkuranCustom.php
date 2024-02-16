@@ -9,6 +9,9 @@ class UkuranCustom extends Model
 {
     use HasFactory;
 
+    // Mendefinisikan nama tabel terkait
+    protected $table = 'ukuran_custom';
+
     // Mendefinisikan atribut yang dapat diisi (fillable) oleh pengguna
     protected $fillable = [
         'barang_id', // Ini adalah id barang yang terkait dengan ukuran

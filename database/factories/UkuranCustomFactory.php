@@ -6,12 +6,12 @@ use App\Models\Barang;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Ukuran>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UkuranCustom>
  */
-class UkuranFactory extends Factory
+class UkuranCustomFactory extends Factory
 {
     /**
-     * Define the model's default state.    
+     * Define the model's default state.
      *
      * @return array<string, mixed>
      */
@@ -19,9 +19,9 @@ class UkuranFactory extends Factory
     {
         return [
             'barang_id' => Barang::all()->random()->id,
-            'ukuran' => $this->faker->randomNumber(1, 10),
-            'deskripsi' => $this->faker->word,
-            'stock' => $this->faker->randomNumber(2),
+            'panjang' => $this->faker->randomNumber(2),
+            'lebar' => $this->faker->randomNumber(2),
+            'tinggi' => $this->faker->randomNumber(2),
             'harga' => $this->faker->randomNumber(6),
         ];
     }

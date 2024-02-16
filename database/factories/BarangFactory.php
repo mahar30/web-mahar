@@ -20,9 +20,8 @@ class BarangFactory extends Factory
         return [
             'nama_barang' => "Barang-$i",
             'keterangan' => $this->faker->text,
-            'stock' => $this->faker->numberBetween(1, 100),
             'gambar' => $this->faker->imageUrl(640, 480),
-            'status' => $this->faker->randomElement(['Aktif', 'Nonaktif']),
+            'status' => $this->faker->randomElement(['Aktif', 'Tidak Aktif']),
         ];
         $i++;
     }
