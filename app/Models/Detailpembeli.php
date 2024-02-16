@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Detailpembeli extends Model
+class DetailPembeli extends Model
 {
     use HasFactory;
     // Mendefinisikan nama tabel yang digunakan oleh model ini
