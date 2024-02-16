@@ -35,14 +35,14 @@
                             };
                             reader.readAsDataURL($refs.gambar.files[0]);
                         " />
+                    @error('gambar')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
                     @if ($barang->exists && $barang->gambar)
                         <x-button emerald class="mt-2">
                             <a href="{{ $gambar_url }}" download>Download</a>
                         </x-button>
                     @endif
-                    @error('gambar')
-                        <span class="text-red-500">{{ $message }}</span>
-                    @enderror
                 </div>
                 <div class="mb-4">
                     <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status</label>

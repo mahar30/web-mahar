@@ -21,7 +21,7 @@ class BarangForm extends ModalComponent
         'nama_barang' => 'required',
         'keterangan' => 'required',
         'stock' => 'required|numeric',
-        'gambar' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,gif',
+        'gambar' => 'nullable|sometimes|image|max:2048|mimes:jpg,jpeg,png,gif',
         'status' => 'required',
     ];
 

@@ -9,8 +9,8 @@
             <ul tabindex="0"
                 class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-black">
                 <li><a href="{{ url('/') }}">Beranda</a></li>
-                <li><a>Gallery</a></li>
-                <li><a>Produk</a></li>
+                <li><a href="{{ url('/gallery') }}">Gallery</a></li>
+                <li><a href="{{ url('/produk') }}">Produk</a></li>
             </ul>
         </div>
         <a class="btn btn-ghost text-xl text-white">UD Bali Jaya Packing</a>
@@ -19,7 +19,7 @@
         <ul class="menu menu-horizontal px-1 text-white">
             <li><a href="{{ url('/') }}">Beranda</a></li>
             <li><a href="{{ url('/gallery') }}">Galeri</a></li>
-            <li><a>Produk</a></li>
+            <li><a href="{{ url('/produk') }}">Produk</a></li>
         </ul>
     </div>
     <div class="navbar-end">
