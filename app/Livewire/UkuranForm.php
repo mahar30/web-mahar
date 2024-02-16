@@ -4,62 +4,93 @@ namespace App\Livewire;
 
 use App\Models\Barang;
 use App\Models\Ukuran;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
+use Masmerise\Toaster\Toastable;
 
-class UkuranForm extends Component
+class UkuranForm extends ModalComponent
 {
-    public $ukuran, $ukuran_id, $barang, $barang_id, $nama_ukuran, $stock, $harga;
+    use Toastable;
 
+    public Ukuran $ukuran;
+    public $barang, $barang_id, $harga;
+    public $ukuranItems = [];
 
     public function render()
     {
-        $ukuran = Ukuran::all();
-        $barang = Barang::all();
 
-        return view('livewire.ukuran-form', compact('ukuran', 'barang'));
+        $barang = Barang::all();
+        return view('livewire.ukuran-form', compact('barang'));
     }
 
+    public function addUkuranItems()
+    {
+        $this->ukuranItems[] = [
+            'barang_id' => '',
+            'ukuran' => '',
+            'harga' => '',
+        ];
+    }
+
+    public function removeUkuranItems($index)
+    {
+        unset($this->ukuranItems[$index]);
+        $this->ukuranItems = array_values($this->ukuranItems);
+    }
+
+    public function resetForm()
+    {
+        $this->reset(['barang_id', 'ukuran', 'harga']);
+    }
 
     public function store()
     {
-        $this->validate([
+        $validatedData = $this->validate([
             'barang_id' => 'required',
-            'nama_ukuran' => 'required',
-            'stock' => 'required',
-            'harga' => 'required',
+            'ukuranItems.*.ukuran' => 'required',
+            'ukuranItems.*.harga' => 'required',
         ]);
 
-        Ukuran::updateOrCreate(['id' => $this->ukuran_id], [
-            'barang_id' => $this->barang_id,
-            'nama_ukuran' => $this->nama_ukuran,
-            'stock' => $this->stock,
-            'harga' => $this->harga,
-        ]);
-
-        // session()->flash('message', $this->ukuran_id ? 'Ukuran berhasil diupdate' : 'Ukuran berhasil ditambahkan');
-        $this->resetInputFields();
-    }
-
-    public function resetimput()
-    {
-        $this->ukuran_id = '';
-        $this->barang_id = '';
-        $this->nama_ukuran = '';
-        $this->stock = '';
-        $this->harga = '';
-    }
-
-    public function mount($id)
-    {
-        $ukuran = Ukuran::find($id);
-        $barang = Barang::all();
-        if (!is_null($ukuran)) {
-            $this->ukuran_id = $ukuran->id;
-            $this->barang_id = $ukuran->barang_id;
-            $this->nama_ukuran = $ukuran->nama_ukuran;
-            $this->stock = $ukuran->stock;
-            $this->harga = $ukuran->harga;
+        DB::beginTransaction();
+        try {
+            foreach ($this->ukuranItems as $item) {
+                if ($this->ukuran->exists) {
+                    $this->ukuran->update($item);
+                    $this->success('Ukuran berhasil diupdate');
+                } else {
+                    $ukuran = new Ukuran();
+                    $ukuran->fill($item);
+                    $ukuran->barang_id = $this->barang_id;
+                    $ukuran->save();
+                    $this->success('Ukuran berhasil ditambahkan');
+                }
+            }
+            DB::commit();
+            $this->closeModalWithEvents([BarangTable::class => 'ukuranUpdated']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->error('Ukuran gagal ditambahkan' . $e->getMessage());
         }
     }
 
+    public function mount($ukuran_id = null, $barang_id = null)
+    {
+        $this->barang_id = $barang_id;
+        $this->barang = Barang::find($barang_id);
+
+        if ($ukuran_id) {
+            $this->ukuran = Ukuran::find($ukuran_id);
+            $this->ukuranItems = [
+                [
+                    'ukuran' => $this->ukuran->ukuran,
+                    'harga' => $this->ukuran->harga,
+                ]
+            ];
+            $this->barang_id = $this->ukuran->barang_id;
+        } else {
+            $this->ukuran = new Ukuran;
+            $this->ukuranItems = [];
+        }
+    }
 }

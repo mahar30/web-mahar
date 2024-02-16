@@ -24,6 +24,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
+    // Mendefinisikan nama tabel yang digunakan oleh model ini
+    // protected $table = "user";
+
     // Atribut yang dapat diisi (fillable) oleh pengguna
     protected $fillable = [
         'name', // Ini adalah nama pengguna

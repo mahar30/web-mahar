@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,11 +18,9 @@ class DetailPembeliFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->randomNumber(1, 10),
+            'user_id' => User::all()->random()->id,
             'no_wa' => $this->faker->numerify('##########'),
             'alamat' => $this->faker->address(),
-            'tanggaltransaksi_teraakhir' => date('Y-m-d H:i:s'),
-            
         ];
     }
 }

@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/gallery', function () {
+    return view('gallery');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -46,23 +50,14 @@ Route::middleware([
         return view('detailpembeli');
     })->name('detailpembeli');
 
-    Route::get('/keranjang', function () {
-        return view('keranjang');
-    })->name('keranjang');
-
     Route::get('/pembayaran', function () {
         return view('pembayaran');
     })->name('pembayaran');
 
     Route::get('/rekening', function () {
         return view('rekening');
-
     })->name('rekening');
     Route::get('/transaksi', function () {
         return view('transaksi');
     })->name('transaksi');
-
-    Route::get('/ukuran', function () {
-        return view('ukuran');
-    })->name('ukuran');
 });

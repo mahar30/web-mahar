@@ -17,7 +17,7 @@ class Pembayaran extends Model
         'user_id', // Ini adalah ID dari pengguna yang melakukan pembayaran
         'rekening_id', // Ini adalah ID dari rekening yang digunakan untuk pembayaran
         'foto', // Ini adalah nama file foto atau bukti pembayaran
-        'nama_rekening', // Ini adalah nama pemilik rekening yang digunakan untuk pembayaran
+        'status', // Ini adalah status pembayaran (misalnya, dalam proses atau berhasil)
     ];
 
     // Mendefinisikan hubungan "belongsTo" dengan model Rekening

@@ -3,74 +3,50 @@
 namespace App\Livewire;
 
 use App\Models\Rekening;
-use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
+use Masmerise\Toaster\Toastable;
 
 class RekeningForm extends ModalComponent
 {
-    public $rekening, $nama_bank, $no_rekening, $atas_nama, $status, $id;
-    
+    use Toastable;
+    public Rekening $rekening;
+    public $nama_bank, $no_rekening, $nama_rekening;
+
     public function render()
     {
-        $rekening = Rekening::all();
-        return view('livewire.rekening-form', compact('rekening'));
+        return view('livewire.rekening-form');
     }
 
     public function resetCreateForm()
     {
         $this->nama_bank = '';
         $this->no_rekening = '';
-        $this->atas_nama = '';
-        $this->status = '';
+        $this->nama_rekening = '';
     }
+
+    protected $rules = [
+        'nama_bank' => 'required',
+        'no_rekening' => 'required',
+        'nama_rekening' => 'required',
+    ];
 
     public function store()
     {
-        $this->validate([
-            'nama_bank' => 'required',
-            'no_rekening' => 'required',
-            'atas_nama' => 'required',
-            'status' => 'required',
-        ]);
-
-        Rekening::create([
-            'nama_bank' => $this->nama_bank,
-            'no_rekening' => $this->no_rekening,
-            'atas_nama' => $this->atas_nama,
-            'status' => $this->status,
-        ]);
-        $this->resetInput();
-        
-        if ($this->id) {
-            $rekening = Rekening::find($this->id);
-            $rekening->update([
-            'nama_bank' => $this->nama_bank,
-            'no_rekening' => $this->no_rekening,
-            'atas_nama' => $this->atas_nama,
-            'status' => $this->status,
-        ]);
-        } else {
-            $rekening = Rekening::create([
-            'nama_bank' => $this->nama_bank,
-            'no_rekening' => $this->no_rekening,
-            'atas_nama' => $this->atas_nama,
-            'status' => $this->status,
-            ]);
-        }
+        $validatedData = $this->validate();
+        $this->rekening->fill($validatedData);
+        $this->rekening->save();
+        $this->success($this->rekening->wasRecentlyCreated ? 'Rekening berhasil ditambahkan' : 'Rekening berhasil diubah');
+        $this->closeModalWithEvents([RekeningTable::class => 'rekeningUpdated']);
+        $this->resetCreateForm();
     }
 
-    public function mount($id)
+    public function mount($rowId = null)
     {
-        $rekening = Rekening::find($id);
-        if (!is_null($rekening)) {
-            $this->id = $id;
-            $this->nama_bank = $rekening->nama_bank;
-            $this->no_rekening = $rekening->no_rekening;
-            $this->atas_nama = $rekening->atas_nama;
-            $this->status = $rekening->status;
+        $this->rekening = $rowId ? Rekening::find($rowId) : new Rekening();
+        if ($this->rekening->exists) {
+            $this->nama_bank = $this->rekening->nama_bank;
+            $this->no_rekening = $this->rekening->no_rekening;
+            $this->nama_rekening = $this->rekening->nama_rekening;
         }
     }
-
-
-
 }

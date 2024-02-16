@@ -3,81 +3,80 @@
 namespace App\Livewire;
 
 use App\Models\Barang;
-use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
+use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
+use Masmerise\Toaster\Toastable;
 
 class BarangForm extends ModalComponent
 {
+    use Toastable;
+    use WithFileUploads;
 
-    public $nama_barang, $keterangan, $gambar, $status, $total_terjual, $id, $barang;
+    public Barang $barang;
+
+    public $nama_barang, $keterangan, $gambar, $status, $gambar_url, $stock;
+
+    protected $rules = [
+        'nama_barang' => 'required',
+        'keterangan' => 'required',
+        'stock' => 'required|numeric',
+        'gambar' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,gif',
+        'status' => 'required',
+    ];
+
     public function render()
     {
-        $barang = Barang::all();
-        return view('livewire.barang-form', compact('barang'));
+        return view('livewire.barang-form');
     }
 
     public function resetCreateForm()
     {
         $this->nama_barang = '';
         $this->keterangan = '';
+        $this->stock = '';
         $this->gambar = '';
         $this->status = '';
-        $this->total_terjual = '';
     }
 
     public function store()
     {
-        $this->validate([
-            'nama_barang' => 'required',
-            'keterangan' => 'required',
-            'gambar' => 'required',
-            'status' => 'required',
-            'total_terjual' => 'required',
-        ]);
+        $validatedData = $this->validate();
 
-        Barang::create([
-            'nama_barang' => $this->nama_barang,
-            'keterangan' => $this->keterangan,
-            'gambar' => $this->gambar,
-            'status' => $this->status,
-            'total_terjual' => $this->total_terjual,
-        ]);
-        $this->resetInput();
-
-        if ($this->id) {
-            $barang = Barang::find($this->id);
-            $barang->update([
-                'nama_barang' => $this->nama_barang,
-                'keterangan' => $this->keterangan,
-                'gambar' => $this->gambar,
-                'status' => $this->status,
-                'total_terjual' => $this->total_terjual,
-            ]);
+        if ($this->gambar) {
+            if ($this->barang->exists && $this->barang->gambar) {
+                Storage::disk('public')->delete($this->barang->gambar);
+            }
+            $validatedData['gambar'] = $this->gambar->store('gambar-barang', 'public');
         } else {
-            $barang = Barang::create([
-                'nama_barang' => $this->nama_barang,
-                'keterangan' => $this->keterangan,
-                'gambar' => $this->gambar,
-                'status' => $this->status,
-                'total_terjual' => $this->total_terjual,
-            ]);
+            // Jika tidak ada gambar baru, gunakan gambar lama
+            $validatedData['gambar'] = $this->barang->gambar;
         }
+
+        $this->barang->fill($validatedData);
+        $this->barang->save();
+
+        $this->success($this->barang->wasRecentlyCreated ? 'Barang berhasil ditambahkan' : 'Barang berhasil diubah');
+        $this->closeModalWithEvents([
+            BarangTable::class => 'barangUpdated',
+        ]);
+
+        $this->resetCreateForm();
     }
 
     public function mount($rowId = null)
     {
+        $this->barang = $rowId ? Barang::find($rowId) : new Barang();
+        if ($this->barang->exists) {
+            $this->nama_barang = $this->barang->nama_barang;
+            $this->keterangan = $this->barang->keterangan;
+            $this->stock = $this->barang->stock;
+            $this->status = $this->barang->status;
 
-        $this->barang = Barang::all();
-        if (!is_null($rowId)) {
-                $barang = Barang::find($rowId);
-                $this->id = $barang->id;
-                $this->nama_barang = $barang->nama_barang;
-                $this->keterangan = $barang->keterangan;
-                $this->gambar = $barang->gambar;
-                $this->status = $barang->status;
-                $this->total_terjual = $barang->total_terjual;
+            // Menambahkan URL gambar
+            if ($this->barang->gambar_barang) {
+                $this->gambar_url = Storage::disk('public')->url($this->barang->gambar_barang);
             }
-        
+        }
     }
-    
 }

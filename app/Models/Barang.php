@@ -15,14 +15,13 @@ class Barang extends Model
     protected $fillable = [
         'nama_barang', // Ini adalah nama barang
         'keterangan', // Ini adalah keterangan atau deskripsi barang dalam bentuk teks
+        'stock', // Ini adalah jumlah stock barang
         'gambar', // Ini adalah nama file gambar barang
         'status', // Ini adalah status barang
-        'total_terjual', // Ini adalah total barang yang sudah terjual
     ];
 
     // Mendefinisikan tipe data untuk atribut 'keterangan' sebagai teks
-    protected $casts = [
-    ];
+    protected $casts = [];
 
     // Mendefinisikan hubungan "hasMany" dengan model Ukuran
     // Ini mengindikasikan bahwa satu barang memiliki banyak ukuran

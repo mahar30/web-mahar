@@ -15,7 +15,6 @@ class Ukuran extends Model
     protected $fillable = [
         'barang_id', // Ini adalah id barang yang terkait dengan ukuran
         'ukuran', // Ini adalah nama ukuran
-        'stock', // Ini adalah stok ukuran
         'harga', // Ini adalah harga ukuran
 
     ];

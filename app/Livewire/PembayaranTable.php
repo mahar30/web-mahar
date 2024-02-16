@@ -21,6 +21,7 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class PembayaranTable extends PowerGridComponent
 {
     use WithExport;
+    public $transaksi_id;
 
     public function setUp(): array
     {
@@ -43,12 +44,10 @@ final class PembayaranTable extends PowerGridComponent
     public function datasource(): Builder
     {
         return Pembayaran::query()
-        ->leftJoin('users', 'pembayaran.user_id', '=', 'users.id')
-        ->leftJoin('rekening', 'pembayaran.rekening_id', '=', 'rekening.id')
-        ->leftJoin('transaksi', 'pembayaran.transaksi_id', '=', 'transaksi.id')
-        ->select('pembayaran.*', 'users.name as name', 'rekening.nama_bank as nama_bank', 'transaksi.total_harga as total_harga ', 'transaksi.status as status_transaksi')
-
-        ;
+            ->leftJoin('users', 'pembayaran.user_id', '=', 'users.id')
+            ->leftJoin('rekening', 'pembayaran.rekening_id', '=', 'rekening.id')
+            ->leftJoin('transaksi', 'pembayaran.transaksi_id', '=', 'transaksi.id')
+            ->select('pembayaran.*', 'users.name as name', 'rekening.nama_bank as nama_bank', 'transaksi.total_harga as total_harga ', 'transaksi.status as status');
     }
 
     public function relationSearch(): array
@@ -56,9 +55,7 @@ final class PembayaranTable extends PowerGridComponent
         return [
             'users.name' => 'name',
             'rekening' => 'nama_bank',
-            'transaksi' => ['total_harga', 'status_transaksi'],
-
-
+            'transaksi' => ['total_harga', 'status'],
         ];
     }
 
@@ -73,8 +70,7 @@ final class PembayaranTable extends PowerGridComponent
             ->add('foto')
             ->add('total_harga')
             ->add('status_transaksi')
-            ->add('nama_rekening')
-            ;
+            ->add('nama_rekening');
     }
 
     public function columns(): array
@@ -84,10 +80,14 @@ final class PembayaranTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            column::make('Nama ', 'name')
+            Column::make('Nama ', 'name')
                 ->sortable()
                 ->searchable(),
-            
+
+            Column::make('Nama ', 'transaksi_id')
+                ->sortable()
+                ->searchable(),
+
             // Column::make('Foto', 'foto')
             //     ->sortable()
             //     ->searchable(),
@@ -113,27 +113,26 @@ final class PembayaranTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [
-        ];
+        return [];
     }
 
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert('.$rowId.')');
+        $this->js('alert(' . $rowId . ')');
     }
 
     public function actions(\App\Models\Pembayaran $row): array
     {
         return [
             Button::add('edit')
-                ->slot('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                ->slot('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
                 </svg>
                 ')
                 ->id()
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->openModal('pembayaran-form', ['rowId' => $row->id]),
+                ->openModal('pembayaran-form', ['rowId' => $row->id, 'updatingStatusOnly' => false, 'transaksi_id' => $row->transaksi_id]),
             Button::add('delete')
                 ->slot('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
@@ -154,7 +153,7 @@ final class PembayaranTable extends PowerGridComponent
                 </svg>
                 '))
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700 w-full')
-                ->openModal('pembayaran-form', []),
+                ->openModal('pembayaran-form', ['transaksi_id' => $this->transaksi_id, 'updatingStatusOnly' => false]),
             Button::add('export-pdf')
                 ->slot(__('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z" />
@@ -167,8 +166,8 @@ final class PembayaranTable extends PowerGridComponent
 
     protected function getListeners()
     {
-            return array_merge(
-                parent::getListeners(),
+        return array_merge(
+            parent::getListeners(),
             [
                 'exportPdf',
                 'delete',
@@ -203,16 +202,4 @@ final class PembayaranTable extends PowerGridComponent
         $pembayaran->user()->detach();
         $pembayaran->delete();
     }
-
-    /*
-    public function actionRules($row): array
-    {
-       return [
-            // Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($row) => $row->id === 1)
-                ->hide(),
-        ];
-    }
-    */
 }

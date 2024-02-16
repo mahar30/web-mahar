@@ -3,9 +3,12 @@
 namespace App\Livewire;
 
 use App\Models\Barang;
+use App\Models\Ukuran;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
+use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Detail;
@@ -21,6 +24,7 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class BarangTable extends PowerGridComponent
 {
     use WithExport;
+    use Toastable;
 
     public function setUp(): array
     {
@@ -43,16 +47,12 @@ final class BarangTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Barang::query()
-            
-        ;
+        return Barang::query();
     }
 
     public function relationSearch(): array
     {
-        return [
-
-        ];
+        return [];
     }
 
     public function fields(): PowerGridFields
@@ -61,9 +61,9 @@ final class BarangTable extends PowerGridComponent
             ->add('id')
             ->add('nama_barang')
             ->add('keterangan')
+            ->add('stock')
             ->add('gambar')
-            ->add('status')
-            ->add('total_terjual');
+            ->add('status');
     }
 
     public function columns(): array
@@ -72,27 +72,18 @@ final class BarangTable extends PowerGridComponent
             Column::make('Id', 'id')
                 ->sortable()
                 ->searchable(),
-                
+
             Column::make('Nama barang', 'nama_barang')
                 ->sortable()
                 ->searchable(),
 
-            // Column::make('Keterangan', 'keterangan')
-            //     ->sortable()
-            //     ->searchable(),
-
-            // Column::make('Gambar', 'gambar')
-            //     ->sortable()
-            //     ->searchable(),
+            Column::make('Stock', 'stock')
+                ->sortable()
+                ->searchable(),
 
             Column::make('Status', 'status')
                 ->sortable()
                 ->searchable(),
-
-            Column::make('Total terjual', 'total_terjual')
-                ->sortable()
-                ->searchable(),
-
 
             Column::action('Action')
         ];
@@ -101,18 +92,23 @@ final class BarangTable extends PowerGridComponent
     public function filters(): array
     {
         return [
+            Filter::select('status', 'barang.status')
+                ->dataSource(Barang::all()->unique('status'))
+                ->optionValue('status')
+                ->optionLabel('status'),
         ];
-    }
-
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
-    {
-        $this->js('alert('.$rowId.')');
     }
 
     public function actions(\App\Models\Barang $row): array
     {
         return [
+            Button::add('add-ukuran')
+                ->slot('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6b7280" class="w-5 h-5">
+            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+            </svg>')
+                ->id()
+                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->openModal('ukuran-form', ['barang_id' => $row->id]),
             Button::add('edit')
                 ->slot('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
@@ -154,12 +150,13 @@ final class BarangTable extends PowerGridComponent
 
     protected function getListeners()
     {
-            return array_merge(
-                parent::getListeners(),
+        return array_merge(
+            parent::getListeners(),
             [
                 'exportPdf',
                 'delete',
                 'barangUpdated' => '$refresh',
+                'ukuranUpdated' => '$refresh',
             ]
         );
     }
@@ -186,20 +183,18 @@ final class BarangTable extends PowerGridComponent
     public function delete($rowId)
     {
         $barang = Barang::findOrFail($rowId);
-        // Detach all associated users
-        $barang->user()->detach();
+
+        if ($barang->gambar) {
+            Storage::disk('public')->delete($barang->gambar);
+        }
         $barang->delete();
+        $this->success('Barang berhasil dihapus');
     }
 
-    /*
-    public function actionRules($row): array
+    public function deleteUkuran($ukuran_id)
     {
-       return [
-            // Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($row) => $row->id === 1)
-                ->hide(),
-        ];
+        $ukuran = Ukuran::findOrFail($ukuran_id);
+        $ukuran->delete();
+        $this->success('Ukuran berhasil dihapus');
     }
-    */
 }

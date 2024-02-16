@@ -6,6 +6,7 @@ use App\Models\Rekening;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Detail;
@@ -20,6 +21,7 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
 final class RekeningTable extends PowerGridComponent
 {
+    use Toastable;
     use WithExport;
 
     public function setUp(): array
@@ -34,24 +36,17 @@ final class RekeningTable extends PowerGridComponent
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
-            Detail::make()
-                ->showCollapseIcon()
-                ->view('details.rekening-detail'),
         ];
     }
 
     public function datasource(): Builder
     {
-        return Rekening::query()
-
-        ;
+        return Rekening::query();
     }
 
     public function relationSearch(): array
     {
-        return [
-            
-        ];
+        return [];
     }
 
     public function fields(): PowerGridFields
@@ -61,7 +56,7 @@ final class RekeningTable extends PowerGridComponent
             ->add('nama_bank')
             ->add('no_rekening')
             ->add('nama_rekening');
-            // ->add('created_at')
+        // ->add('created_at')
     }
 
     public function columns(): array
@@ -96,14 +91,13 @@ final class RekeningTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [
-        ];
+        return [];
     }
 
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert('.$rowId.')');
+        $this->js('alert(' . $rowId . ')');
     }
 
     public function actions(\App\Models\Rekening $row): array
@@ -150,8 +144,8 @@ final class RekeningTable extends PowerGridComponent
 
     protected function getListeners()
     {
-            return array_merge(
-                parent::getListeners(),
+        return array_merge(
+            parent::getListeners(),
             [
                 'exportPdf',
                 'delete',
@@ -182,9 +176,8 @@ final class RekeningTable extends PowerGridComponent
     public function delete($rowId)
     {
         $rekening = Rekening::findOrFail($rowId);
-        // Detach all associated users
-        $rekening->user()->detach();
         $rekening->delete();
+        $this->success('Rekening berhasil dihapus');
     }
 
     /*
