@@ -18,6 +18,10 @@ return new class extends Migration
             $table->foreignId('barang_id')->constrained('barang')->onDelete('cascade');
             // Ini adalah kolom untuk menyimpan ukuran dengan panjang maksimal 50 karakter
             $table->string('ukuran', 50);
+            // Ini adalah kolom untuk menyimpan deskripsi ukuran
+            $table->text('deskripsi');
+            // Ini adalah kolom untuk menyimpan stock
+            $table->integer('stock');
             // Ini adalah kolom untuk menyimpan harga dalam bentuk bilangan bulat (integer)
             $table->integer('harga');
             // Ini adalah timestamp untuk createdAt dan updatedAt

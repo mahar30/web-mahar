@@ -19,7 +19,7 @@ class DetailPembeliFactory extends Factory
     {
         return [
             'user_id' => User::all()->random()->id,
-            'no_wa' => $this->faker->numerify('##########'),
+            'no_wa' => $this->faker->phoneNumber(),
             'alamat' => $this->faker->address(),
         ];
     }

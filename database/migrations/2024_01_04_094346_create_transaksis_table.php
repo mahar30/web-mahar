@@ -18,10 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             // Ini adalah kolom untuk menyimpan total harga dalam bentuk bilangan bulat (integer)
             $table->integer('total_harga');
-            // Ini adalah kolom untuk menyimpan tipe pembayaran dengan panjang maksimal 255 karakter
-            $table->enum('tipe_pembayaran', ['tunai', 'non tunai']);
             // Ini adalah kolom untuk menyimpan status transaksi dengan panjang maksimal 100 karakter
-            $table->string('status', 100);
+            $table->enum('status', ['Belum Terbayar', 'Sudah Terbayar', 'Dikonfirmasi', 'Selesai'])->default('Belum Terbayar');
             // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });

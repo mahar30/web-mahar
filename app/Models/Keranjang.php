@@ -16,6 +16,7 @@ class Keranjang extends Model
         'barang_id', // Ini adalah ID dari barang yang ada dalam keranjang
         'user_id', // Ini adalah ID dari pengguna yang memiliki keranjang
         'ukuran_id', // Ini adalah ID dari ukuran barang dalam keranjang
+        'ukuran_custom_id', // Ini adalah ID dari ukuran custom barang dalam keranjang
         'jumlah', // Ini adalah jumlah barang dalam keranjang
         'status', // Ini adalah status keranjang (misalnya, dalam proses pembayaran)
     ];
@@ -39,5 +40,12 @@ class Keranjang extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // Mendefinisikan hubungan "belongsTo" dengan model UkuranCustom
+    // Ini mengindikasikan bahwa setiap keranjang terkait dengan satu ukuran custom (UkuranCustom)
+    public function ukuran_custom()
+    {
+        return $this->belongsTo(UkuranCustom::class);
     }
 }

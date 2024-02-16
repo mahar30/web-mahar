@@ -16,13 +16,25 @@ class DetailtransaksiFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'transaksi_id' => \App\Models\Transaksi::all()->random()->id,   
-            'ukuran' => $this->faker->word,
-            'jumlah' => $this->faker->randomNumber(0),
-            'nama_barang' => $this->faker->word,
-            'total' => $this->faker->randomNumber(0),
-            'foto_barang' =>$this->faker->imageUrl(640, 480),
-        ];
+        $minDetail = 1;
+        $maxDetail = 50;
+
+        $totalDetail = 0;
+        $detailTransaksi = [];
+
+        while ($totalDetail < $maxDetail) {
+            $detailTransaksi[] = [
+                'transaksi_id' => function () {
+                    return App\Models\Transaksi::all()->random()->id;
+                },
+                'ukuran' => $this->faker->word,
+                'jumlah' => $this->faker->numberBetween($minDetail, 10),
+                'total' => $this->faker->randomNumber(0),
+            ];
+
+            $totalDetail += $this->faker->numberBetween($minDetail, 10);
+        }
+
+        return $detailTransaksi;
     }
 }

@@ -16,12 +16,14 @@ class BarangFactory extends Factory
      */
     public function definition(): array
     {
+        $i = 1;
         return [
-            'nama_barang' => $this->faker->name,
+            'nama_barang' => "Barang-$i",
             'keterangan' => $this->faker->text,
             'stock' => $this->faker->numberBetween(1, 100),
-            'gambar' => $this->faker->imageUrl(640, 480), // menghasilkan URL ke gambar acak dengan lebar 640px dan tinggi 480px
+            'gambar' => $this->faker->imageUrl(640, 480),
             'status' => $this->faker->randomElement(['Aktif', 'Nonaktif']),
         ];
+        $i++;
     }
 }

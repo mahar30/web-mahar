@@ -14,11 +14,10 @@ class Detailtransaksi extends Model
     // Mendefinisikan atribut yang dapat diisi (fillable) oleh pengguna
     protected $fillable = [
         'transaksi_id', // Ini adalah ID dari transaksi yang terkait dengan detail transaksi
-        'ukuran', // Ini adalah ukuran dari barang dalam detail transaksi
-        'jumlah', // Ini adalah jumlah barang dalam detail transaksi
         'nama_barang', // Ini adalah nama barang dalam detail transaksi
-        'total', // Ini adalah total harga barang dalam detail transaksi
-        'foto_barang', // Ini adalah nama file foto barang dalam detail transaksi
+        'jumlah', // Ini adalah jumlah barang dalam detail transaksi
+        'ukuran', // Ini adalah ukuran dari barang dalam detail transaksi
+        'harga', // Ini adalah harga dari barang dalam detail transaksi
     ];
 
     // Mendefinisikan hubungan "belongsTo" dengan model Transaksi

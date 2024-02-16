@@ -15,7 +15,6 @@ class Transaksi extends Model
     protected $fillable = [
         'user_id', // Ini adalah ID dari pengguna yang melakukan transaksi
         'total_harga', // Ini adalah total harga transaksi
-        'tipe_pembayaran', // Ini adalah tipe pembayaran (misalnya, transfer bank atau kartu kredit)
         'status', // Ini adalah status transaksi (misalnya, dalam proses atau berhasil)
     ];
 
@@ -46,7 +45,4 @@ class Transaksi extends Model
             return "ukuran: {$detail->ukuran}, <br> Jumlah: {$detail->jumlah}, <br> Nama Barang: {$detail->nama_barang}, <br> Total: {$detail->total}, <br> Foto Barang: {$detail->foto_barang}";
         })->join('; <br>');
     }
-
-    
-    
 }
