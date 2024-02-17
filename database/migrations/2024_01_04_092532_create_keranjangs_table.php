@@ -18,13 +18,15 @@ return new class extends Migration
             // Ini adalah foreign key yang mengacu pada kolom 'user_id' pada tabel 'user' dengan penghapusan data 'cascade'
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             // Ini adalah foreign key yang mengacu pada kolom 'ukuran_id' pada tabel 'ukuran' dengan penghapusan data 'cascade'
-            $table->foreignId('ukuran_id')->constrained('ukuran')->onDelete('cascade')->nullable();
+            $table->foreignId('ukuran_id')->nullable()->constrained('ukuran')->onDelete('cascade');
             // Ini adalah foreign key yang mengacu pada kolom 'ukuran_custom_id' pada tabel 'ukuran_custom' dengan penghapusan data 'cascade'
-            $table->foreignId('ukuran_custom_id')->constrained('ukuran_custom')->onDelete('cascade')->nullable();
+            $table->foreignId('ukuran_custom_id')->nullable()->constrained('ukuran_custom')->onDelete('cascade');
             // Ini adalah foreign key yang mengacu pada kolom 'barang_id' pada tabel 'barang' dengan penghapusan data 'cascade'
             $table->foreignId('barang_id')->constrained('barang')->onDelete('cascade');
             // Ini adalah kolom untuk menyimpan jumlah dalam bentuk bilangan bulat (integer)
             $table->integer('jumlah');
+            // Ini adalah kolom untuk tipe ukuran dengan enum 'standar' dan 'custom'
+            $table->enum('tipe_ukuran', ['standar', 'custom']);
             // Ini adalah kolom untuk menyimpan status dengan enum 'Aktif' dan 'Tidak Aktif'
             $table->enum('status', ['Aktif', 'Tidak Aktif']);
             // Ini adalah timestamp untuk createdAt dan updatedAt

@@ -16,8 +16,8 @@
                             <h2 class="card-title">{{ $item->nama_barang }}</h2>
                             <p>{{ $item->keterangan }}</p>
                             <div class="card-actions justify-end">
-                                <a class="btn btn-primary" href="{{ route('detail-produk', ['id' => $item->id]) }}">Buy
-                                    Now</a>
+                                <a class="btn btn-primary"
+                                    href="{{ route('detail-produk', ['id' => $item->id]) }}">Detail</a>
                             </div>
                         </div>
                     </div>

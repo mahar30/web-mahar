@@ -1,5 +1,8 @@
 <x-guest-layout>
-    <div class="flex flex-col min-h-screen">
+    @php
+        session(['showNavigation' => false]);
+    @endphp
+    <div class="flex flex-col min-h-screen" x-data>
         @livewire('navbar')
         <div class="flex-grow">
 
@@ -15,7 +18,9 @@
                         <div>
                             <h1 class="text-5xl font-bold">{{ $barang->nama_barang }}</h1>
                             <p class="py-6">{{ $barang->keterangan }}</p>
-                            <button class="btn btn-primary">Get Started</button>
+                            <button class="btn btn-primary"
+                                onclick="Livewire.dispatch('openModal', { component: 'keranjang-form', arguments: { barang_id: {{ $barang->id }} } })"">Beli
+                                Sekarang</button>
                         </div>
                     </div>
                 </div>
@@ -26,39 +31,26 @@
             </div>
             <div class="flex justify-center my-5 flex-wrap">
 
-                <div class="overflow-x-auto">
-                    <table class="table">
+                <div class="overflow-x-auto w-full mx-10 my-5">
+                    <table class="table table-zebra border-2">
                         <!-- head -->
-                        <thead>
+                        <thead class="border-2 text-base">
                             <tr>
-                                <th></th>
+                                <th>No </th>
                                 <th>Ukuran</th>
                                 <th>Deskripsi</th>
                                 <th>Harga</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- row 1 -->
-                            <tr>
-                                <th>1</th>
-                                <td>Cy Ganderton</td>
-                                <td>Quality Control Specialist</td>
-                                <td>Blue</td>
-                            </tr>
-                            <!-- row 2 -->
-                            <tr>
-                                <th>2</th>
-                                <td>Hart Hagerty</td>
-                                <td>Desktop Support Technician</td>
-                                <td>Purple</td>
-                            </tr>
-                            <!-- row 3 -->
-                            <tr>
-                                <th>3</th>
-                                <td>Brice Swyre</td>
-                                <td>Tax Accountant</td>
-                                <td>Red</td>
-                            </tr>
+                            @foreach ($barang->ukuran as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->ukuran }}</td>
+                                    <td>{{ $item->deskripsi }}</td>
+                                    <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
