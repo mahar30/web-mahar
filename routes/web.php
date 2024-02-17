@@ -68,7 +68,12 @@ Route::middleware([
     Route::get('/rekening', function () {
         return view('rekening');
     })->name('rekening');
+
     Route::get('/transaksi', function () {
         return view('transaksi');
     })->name('transaksi');
+
+    Route::get('/keranjang', function () {
+        return view('keranjang');
+    })->name('keranjang');
 });
