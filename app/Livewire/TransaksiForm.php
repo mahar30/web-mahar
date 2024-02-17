@@ -50,8 +50,15 @@ class TransaksiForm extends ModalComponent
 
     public function store()
     {
-        $validated = $this->validate();
-        $this->transaksi->fill($validated);
+        if ($this->updatingStatusOnly) {
+            $validated = $this->validate(['status' => 'required']);
+            $this->transaksi->status = $validated['status'];
+        } else {
+            $validated = $this->validate();
+            $this->transaksi->fill($validated);
+        }
+        // $validated = $this->validate();
+        // $this->transaksi->fill($validated);
         $this->transaksi->save();
 
         $this->success($this->transaksi->wasRecentlyCreated ? 'Transaksi berhasil fibuat' : 'Transaksi berhasil diubah');

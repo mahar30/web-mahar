@@ -38,11 +38,4 @@ class Transaksi extends Model
     {
         return $this->hasMany(Detailtransaksi::class);
     }
-
-    public function getDetailtransaksiSummaryAttribute()
-    {
-        return $this->detailtransaksi->map(function ($detail) {
-            return "ukuran: {$detail->ukuran}, <br> Jumlah: {$detail->jumlah}, <br> Nama Barang: {$detail->nama_barang}, <br> Total: {$detail->total}, <br> Foto Barang: {$detail->foto_barang}";
-        })->join('; <br>');
-    }
 }

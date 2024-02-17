@@ -45,18 +45,13 @@ final class TransaksiTable extends PowerGridComponent
         return Transaksi::query()
             ->with('detailtransaksi')
             ->join('users', 'transaksi.user_id', '=', 'users.id')
-            ->select('transaksi.*', 'users.name as name', 'users.id as user_id');
-            // return Transaksi::query()
-            // ->leftJoin('users', 'transaksi.user_id', '=', 'users.id')
-            // ->select('transaksi.*', 'users.name as name', 'users.id as user_id')
-        ;
+            ->select('transaksi.*', 'users.name as name', 'users.id as user_id');;
     }
 
     public function relationSearch(): array
     {
         return [
             'user' => 'name',
-            // 'detailtransaksi' => ['ukuran', 'jumlah', 'nama_barang', 'total', 'foto_barang'],
         ];
     }
 
@@ -64,9 +59,9 @@ final class TransaksiTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('name')
-            ->add('total_harga')
-            ->add('tipe_pembayaran')
-            ->add('status');
+            ->add('total_harga', fn ($row) => 'Rp ' . number_format($row->total_harga, 0, ',', '.'))
+            ->add('status')
+            ->add('created_at_formatted', fn (Transaksi $model) => Carbon::parse($model->created_at)->format('d/m/Y'));
     }
 
     public function columns(): array
@@ -84,6 +79,13 @@ final class TransaksiTable extends PowerGridComponent
             Column::make('Total Harga', 'total_harga')
                 ->sortable()
                 ->searchable(),
+
+            Column::make('Status', 'status')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Tanggal Transaksi', 'created_at_formatted')
+                ->sortable(),
 
             Column::action('Action')
         ];

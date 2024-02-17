@@ -40,9 +40,8 @@
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="status">
                             <option value="">Pilih Status</option>
-                            <option value="Belum Dikonfirmasi">Belum Dikonfirmasi</option>
-                            <option value="Terkonfirmasi">Terkonfirmasi</option>
-                            <option value="Pengerjaan">Pengerjaan</option>
+                            <option value="Sudah Terbayar">Sudah Terbayar</option>
+                            <option value="Dikonformasi">Dikonformasi</option>
                             <option value="Selesai">Selesai</option>
                         </select>
                         @error('status')
