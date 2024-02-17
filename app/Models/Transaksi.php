@@ -38,4 +38,17 @@ class Transaksi extends Model
     {
         return $this->hasMany(Detailtransaksi::class);
     }
+
+    // Mendapatkan total harga yang diformat
+    public function getFormattedTotalHargaAttribute(): string
+    {
+        return 'Rp ' . number_format($this->total_harga, 0, ',', '.');
+    }
+
+    // Menghitung dan memperbarui total harga
+    public function calculateAndUpdateTotalHarga()
+    {
+        $this->total_harga = $this->detailtransaksi->sum(fn ($detail) => $detail->harga * $detail->qty);
+        $this->save();
+    }
 }
