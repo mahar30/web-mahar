@@ -82,10 +82,10 @@ class KeranjangForm extends ModalComponent
         }
 
         $this->keranjang->save();
+        $this->success('Data Keranjang berhasil disimpan');
 
         $this->closeModal();
         $this->resetinput();
-        $this->success('Data Keranjang berhasil disimpan');
     }
 
     public function mount($rowId = null, $barang_id = null)
