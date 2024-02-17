@@ -6,7 +6,6 @@ use App\Models\Barang;
 use App\Models\Keranjang;
 use App\Models\Ukuran;
 use App\Models\UkuranCustom;
-use Illuminate\Support\Facades\Log;
 use LivewireUI\Modal\ModalComponent;
 use Masmerise\Toaster\Toastable;
 
@@ -15,7 +14,7 @@ class KeranjangForm extends ModalComponent
     use Toastable;
 
     public Keranjang $keranjang;
-    public $user, $barang, $ukuran, $ukuran_custom, $jumlah, $status, $barang_id, $ukuran_id, $user_id, $keranjang_id, $ukuran_custom_id, $user_name, $barang_name, $ukuran_name, $ukuran_custom_name, $panjang, $lebar, $tinggi, $harga, $hargaCustom;
+    public $user, $barang, $ukuran, $ukuran_custom, $jumlah, $barang_id, $ukuran_id, $user_id, $keranjang_id, $ukuran_custom_id, $user_name, $barang_name, $ukuran_name, $ukuran_custom_name, $panjang, $lebar, $tinggi, $harga, $hargaCustom;
     public $tipe_ukuran = '';
 
     public function render()
@@ -30,7 +29,6 @@ class KeranjangForm extends ModalComponent
             'barang_id' => 'required|exists:barang,id',
             'user_id' => 'required|exists:users,id',
             'jumlah' => 'required|numeric|min:1',
-            'status' => 'required',
             'tipe_ukuran' => 'required',
         ];
 
@@ -52,7 +50,6 @@ class KeranjangForm extends ModalComponent
         $this->user_id = '';
         $this->barang_id = '';
         $this->jumlah = '';
-        $this->status = '';
         $this->ukuran_id = '';
         $this->ukuran_custom_id = '';
         $this->panjang = '';
@@ -65,6 +62,11 @@ class KeranjangForm extends ModalComponent
     {
         $validated = $this->validate();
         $this->keranjang->fill($validated);
+
+        $ukuran = Ukuran::find($this->ukuran_id);
+        $ukuran->stock -= $this->jumlah;
+        $ukuran->save();
+
         if ($this->tipe_ukuran === 'standar') {
             // $this->keranjang->ukuran_id = $this->ukuran_id;
             $this->keranjang->ukuran_custom_id = null;
@@ -88,37 +90,13 @@ class KeranjangForm extends ModalComponent
         $this->resetinput();
     }
 
-    public function mount($rowId = null, $barang_id = null)
+    public function mount($barang_id = null)
     {
         // Tetap pertahankan pengambilan user ID
         $this->user_id = auth()->user()->id;
         $this->user_name = auth()->user()->name;
 
-        if ($rowId) {
-            // Mengambil data keranjang berdasarkan row ID
-            $this->keranjang = Keranjang::with('barang', 'ukuran', 'ukuran_custom')->find($rowId);
-
-            // Mengambil data barang
-            $this->barang_id = $this->keranjang->barang_id;
-            $this->barang_name = $this->keranjang->barang->nama_barang;
-
-            // Mengambil data ukuran
-            $this->ukuran = Ukuran::with('barang')->where('barang_id', $this->barang_id)->get();
-            $this->ukuran_id = $this->keranjang->ukuran_id;
-
-            // Mengambil data ukuran custom
-            $this->ukuran_custom_id = $this->keranjang->ukuran_custom_id;
-            $this->panjang = $this->keranjang->panjang;
-            $this->lebar = $this->keranjang->lebar;
-            $this->tinggi = $this->keranjang->tinggi;
-
-            // Mengambil data jumlah dan status
-            $this->jumlah = $this->keranjang->jumlah;
-            $this->status = $this->keranjang->status;
-
-            // Mengambil tipe ukuran
-            $this->tipe_ukuran = $this->keranjang->tipe_ukuran;
-        } else if ($barang_id) {
+        if ($barang_id) {
             // Menginisialisasi keranjang baru
             $this->keranjang = new Keranjang();
 
@@ -134,7 +112,6 @@ class KeranjangForm extends ModalComponent
             $this->ukuran_id = null;
             $this->ukuran_custom_id = null;
             $this->jumlah = null;
-            $this->status = 'Aktif';
             $this->panjang = null;
             $this->lebar = null;
             $this->tinggi = null;

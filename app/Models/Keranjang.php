@@ -18,7 +18,6 @@ class Keranjang extends Model
         'ukuran_id', // Ini adalah ID dari ukuran barang dalam keranjang
         'ukuran_custom_id', // Ini adalah ID dari ukuran custom barang dalam keranjang
         'jumlah', // Ini adalah jumlah barang dalam keranjang
-        'status', // Ini adalah status keranjang (misalnya, dalam proses pembayaran)
         'tipe_ukuran', // Ini adalah tipe ukuran barang dalam keranjang
     ];
 

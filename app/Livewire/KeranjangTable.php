@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Keranjang;
+use App\Models\Ukuran;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Masmerise\Toaster\Toastable;
@@ -63,7 +64,6 @@ final class KeranjangTable extends PowerGridComponent
             ->add('ukuran_id')
             ->add('ukuran_custom_id')
             ->add('jumlah')
-            ->add('status')
             ->add('tipe_ukuran')
             ->add('created_at');
     }
@@ -74,10 +74,6 @@ final class KeranjangTable extends PowerGridComponent
             Column::make('Id', 'id'),
             Column::make('Nama Barang', 'barang.nama_barang'),
             Column::make('Jumlah', 'jumlah')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('Status', 'status')
                 ->sortable()
                 ->searchable(),
 
@@ -122,6 +118,15 @@ final class KeranjangTable extends PowerGridComponent
     public function delete($rowId)
     {
         $keranjang = Keranjang::findOrFail($rowId);
+
+        // Pulihkan stok pada Ukuran sesuai tipe ukuran
+        if ($keranjang->tipe_ukuran === 'standar') {
+            $ukuran = Ukuran::find($keranjang->ukuran_id);
+
+            $ukuran->stock += $keranjang->jumlah;
+            $ukuran->save();
+        }
+
         $keranjang->delete();
         $this->success('Data keranjang berhasil dihapus');
     }

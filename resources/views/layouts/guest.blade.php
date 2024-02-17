@@ -20,6 +20,7 @@
 </head>
 
 <body>
+    <x-toaster-hub />
     <div class="font-sans text-gray-900 antialiased">
         {{ $slot }}
     </div>

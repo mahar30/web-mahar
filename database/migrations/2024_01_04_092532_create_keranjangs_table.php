@@ -27,8 +27,6 @@ return new class extends Migration
             $table->integer('jumlah');
             // Ini adalah kolom untuk tipe ukuran dengan enum 'standar' dan 'custom'
             $table->enum('tipe_ukuran', ['standar', 'custom']);
-            // Ini adalah kolom untuk menyimpan status dengan enum 'Aktif' dan 'Tidak Aktif'
-            $table->enum('status', ['Aktif', 'Tidak Aktif']);
             // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });
