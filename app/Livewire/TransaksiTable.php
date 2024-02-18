@@ -6,6 +6,7 @@ use App\Models\Transaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Detail;
@@ -21,6 +22,7 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class TransaksiTable extends PowerGridComponent
 {
     use WithExport;
+    use Toastable;
 
     public function setUp(): array
     {
@@ -174,5 +176,6 @@ final class TransaksiTable extends PowerGridComponent
     {
         $transaksi = Transaksi::findOrFail($rowId);
         $transaksi->delete();
+        $this->success('Transaksi berhasil dihapus');
     }
 }

@@ -61,22 +61,44 @@ class TransaksiForm extends ModalComponent
 
             // Menyimpan data Detail Transaksi
             foreach ($this->keranjangItems as $keranjangItem) {
+                $ukuran = "";
+                if ($keranjangItem->ukuran_id) {
+                    $ukuran = $keranjangItem->ukuran->panjang . " cm x " . $keranjangItem->ukuran->lebar . " cm x " . $keranjangItem->ukuran->tinggi . " cm";
+                } else {
+                    $ukuran = $keranjangItem->ukuran_custom->panjang . " cm x " . $keranjangItem->ukuran_custom->lebar . " cm x " . $keranjangItem->ukuran_custom->tinggi . " cm";
+                }
+
+                $harga = 0;
+                if ($keranjangItem->ukuran_custom_id) {
+                    $harga = $keranjangItem->ukuran_custom->harga;
+                } else {
+                    $harga = $keranjangItem->ukuran->harga;
+                }
+
                 DetailTransaksi::create([
                     'transaksi_id' => $transaksi->id,
                     'nama_barang' => $keranjangItem->barang->nama_barang,
                     'jumlah' => $keranjangItem->jumlah,
-                    'ukuran' => $keranjangItem->ukuran,
-                    'harga' => $keranjangItem->barang->harga,
+                    'ukuran' => $ukuran,
+                    'harga' => $harga,
                 ]);
             }
         }
-        $this->transaksi->save();
+        // $this->transaksi->save();
 
-        $this->success($this->transaksi->wasRecentlyCreated ? 'Transaksi berhasil fibuat' : 'Transaksi berhasil diubah');
+        // Dapatkan ID User yang Sedang Login
+        $userId = auth()->user()->id;
+
+        // Hapus Semua Data Keranjang yang Berkaitan dengan User
+        Keranjang::where('user_id', $userId)->delete();
+
+        $this->success($transaksi->wasRecentlyCreated ? 'Transaksi berhasil dibuat dan Keranjang telah dibersihkan' : 'Transaksi berhasil diubah');
 
         $this->closeModalWithEvents([
             TransaksiTable::class => 'transaksiUpdated'
         ]);
+
+        redirect()->route('transaksi');
     }
 
     public function mount($rowId = null, $updatingStatusOnly = false, $keranjangIds = null)
