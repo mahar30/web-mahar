@@ -3,31 +3,76 @@
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div class="">
                 @if (!$updatingStatusOnly)
+                    <input type="hidden" wire:model="user_id">
                     <div class="mb-4">
-                        <label for="exampleFormControlInput1"
-                            class="block text-gray-700 text-sm font-bold mb-2">Users</label>
-                        @if ($user)
-                            <select wire:model="user_id" multiple
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Pilih Roles">
-                                <option value="" disabled readonly>-- Pilih Users --
-                                </option>
-                                @foreach ($user as $usr)
-                                    <option value="{{ $usr->id }}">{{ $usr->name }}</option>
-                                @endforeach
-                            </select>
-                        @endif
-                        @error('user_id')
-                            <span class="text-red-500">{{ $message }}</span>
-                        @enderror
+                        @foreach ($keranjangItems as $keranjangItem)
+                            <div class="grid grid-cols-2 gap-4 mb-2 w-full">
+                                <div class="col-span-2">
+                                    <label for="nama_barang" class="form-label">Nama Barang</label>
+                                    <input type="text" id="nama_barang" name="nama_barang"
+                                        value="{{ $keranjangItem->barang->nama_barang }}"
+                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        readonly>
+                                </div>
+                                <div class="col-span-1">
+                                    <label for="jumlah" class="form-label">Jumlah</label>
+                                    <input type="number" id="jumlah" name="jumlah"
+                                        value="{{ $keranjangItem->jumlah }}"
+                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        readonly>
+                                </div>
+                                <div class="col-span-1">
+                                    <label for="ukuran" class="form-label">Ukuran</label>
+                                    @if ($ukuranStandar[$keranjangItem->id])
+                                        <input type="text" id="ukuran" name="ukuran"
+                                            value="{{ $keranjangItem->ukuran->deskripsi }}"
+                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            readonly>
+                                    @else
+                                        <input type="text" id="ukuran" name="ukuran"
+                                            value="{{ $keranjangItem->ukuran_custom->panjang }} cm x {{ $keranjangItem->ukuran_custom->lebar }} cm x {{ $keranjangItem->ukuran_custom->tinggi }} cm"
+                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            readonly>
+                                    @endif
+                                </div>
+                                <div class="col-span-2">
+                                    <label for="harga" class="form-label">Harga Satuan</label>
+                                    @if ($hargaStandar[$keranjangItem->id])
+                                        <input type="text" id="ukuran" name="ukuran"
+                                            value="{{ $keranjangItem->ukuran->harga }}"
+                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            readonly>
+                                    @else
+                                        <input type="text" id="ukuran" name="ukuran"
+                                            value="{{ $keranjangItem->ukuran_custom->harga }}"
+                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            readonly>
+                                    @endif
+                                </div>
+                                <div class="col-span-2">
+                                    <label for="total_harga" class="form-label">Total Harga</label>
+                                    <input type="text" id="total_harga" name="total_harga"
+                                        value="{{ $totalHargaItems[$keranjangItem->id] }}"
+                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        readonly>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
+
                     <div class="mb-4">
-                        <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Harga
-                            Total </label>
-                        <input type="text"
+                        <label for="grand_total" class="form-label font-bold">Grand Total</label>
+                        <input type="text" id="grand_total" name="grand_total" wire:model='total_harga'
+                            value="{{ $total_harga }}"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="exampleFormControlInput1" placeholder="Enter Total Harga" wire:model="total_harga">
-                        @error('total_harga')
+                            readonly>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status</label>
+                        <input wire:model.defer="status" type="text" id="status" name="status"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        @error('status')
                             <span class="text-red-500">{{ $message }}</span>
                         @enderror
                     </div>
@@ -41,7 +86,7 @@
                             id="status">
                             <option value="">Pilih Status</option>
                             <option value="Sudah Terbayar">Sudah Terbayar</option>
-                            <option value="Dikonformasi">Dikonformasi</option>
+                            <option value="Dikonfirmasi">Dikonfirmasi</option>
                             <option value="Selesai">Selesai</option>
                         </select>
                         @error('status')

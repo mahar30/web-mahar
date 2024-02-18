@@ -173,8 +173,6 @@ final class TransaksiTable extends PowerGridComponent
     public function delete($rowId)
     {
         $transaksi = Transaksi::findOrFail($rowId);
-        // Detach all associated users
-        $transaksi->user()->detach();
         $transaksi->delete();
     }
 }
