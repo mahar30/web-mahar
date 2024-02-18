@@ -6,6 +6,8 @@ use App\Models\Pembayaran;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
+use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Detail;
@@ -21,6 +23,7 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class PembayaranTable extends PowerGridComponent
 {
     use WithExport;
+    use Toastable;
     public $transaksi_id;
 
     public function setUp(): array
@@ -181,6 +184,11 @@ final class PembayaranTable extends PowerGridComponent
     public function delete($rowId)
     {
         $pembayaran = Pembayaran::findOrFail($rowId);
+        if ($pembayaran->foto) {
+            Storage::disk('public')->delete($pembayaran->foto);
+        }
         $pembayaran->delete();
+
+        $this->success('Pembayaran berhasil dihapus');
     }
 }
