@@ -14,7 +14,7 @@ class UkuranForm extends ModalComponent
     use Toastable;
 
     public Ukuran $ukuran;
-    public $barang, $barang_id, $harga;
+    public $barang, $barang_id;
     public $ukuranItems = [];
 
     public function render()
@@ -29,6 +29,10 @@ class UkuranForm extends ModalComponent
         $this->ukuranItems[] = [
             'barang_id' => '',
             'ukuran' => '',
+            'panjang' => '',
+            'lebar' => '',
+            'tinggi' => '',
+            'stock' => '',
             'harga' => '',
         ];
     }
@@ -41,7 +45,7 @@ class UkuranForm extends ModalComponent
 
     public function resetForm()
     {
-        $this->reset(['barang_id', 'ukuran', 'harga']);
+        $this->reset(['barang_id', 'ukuran', 'deskripsi', 'stock', 'harga']);
     }
 
     public function store()
@@ -49,6 +53,10 @@ class UkuranForm extends ModalComponent
         $validatedData = $this->validate([
             'barang_id' => 'required',
             'ukuranItems.*.ukuran' => 'required',
+            'ukuranItems.*.panjang' => 'required|numeric|min:1',
+            'ukuranItems.*.lebar' => 'required|numeric|min:1',
+            'ukuranItems.*.tinggi' => 'required|numeric|min:1',
+            'ukuranItems.*.stock' => 'required|numeric',
             'ukuranItems.*.harga' => 'required',
         ]);
 
@@ -84,6 +92,10 @@ class UkuranForm extends ModalComponent
             $this->ukuranItems = [
                 [
                     'ukuran' => $this->ukuran->ukuran,
+                    'panjang' => $this->ukuran->panjang,
+                    'lebar' => $this->ukuran->lebar,
+                    'tinggi' => $this->ukuran->tinggi,
+                    'stock' => $this->ukuran->stock,
                     'harga' => $this->ukuran->harga,
                 ]
             ];

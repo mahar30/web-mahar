@@ -15,8 +15,8 @@
                 @foreach ($ukuranItems as $index => $item)
                     <div wire:key='ukuran-item-{{ $index }}'></div>
                     <div class="mb-4">
-                        <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Ukuran
-                            (m&#179;)</label>
+                        <label for="exampleFormControlInput1"
+                            class="block text-gray-700 text-sm font-bold mb-2">Ukuran</label>
                         <input type="text"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="ukuran-{{ $index }}" placeholder="Enter Ukuran"
@@ -26,8 +26,52 @@
                         @enderror
                     </div>
                     <div class="mb-4">
-                        <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Harga
-                            (m&#179;)</label>
+                        <label for="exampleFormControlInput1"
+                            class="block text-gray-700 text-sm font-bold mb-2">Panjang</label>
+                        <input type="text"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="panjang-{{ $index }}" placeholder="Enter Panjang"
+                            wire:model="ukuranItems.{{ $index }}.panjang">
+                        @error('panjang')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-4">
+                        <label for="exampleFormControlInput1"
+                            class="block text-gray-700 text-sm font-bold mb-2">Lebar</label>
+                        <input type="text"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="lebar-{{ $index }}" placeholder="Enter Lebar"
+                            wire:model="ukuranItems.{{ $index }}.lebar">
+                        @error('lebar')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-4">
+                        <label for="exampleFormControlInput1"
+                            class="block text-gray-700 text-sm font-bold mb-2">Tinggi</label>
+                        <input type="text"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="tinggi-{{ $index }}" placeholder="Enter Tinggi"
+                            wire:model="ukuranItems.{{ $index }}.tinggi">
+                        @error('tinggi')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-4">
+                        <label for="exampleFormControlInput1"
+                            class="block text-gray-700 text-sm font-bold mb-2">Stock</label>
+                        <input type="text"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="stock-{{ $index }}" placeholder="Enter Stock"
+                            wire:model="ukuranItems.{{ $index }}.stock">
+                        @error('stock')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-4">
+                        <label for="exampleFormControlInput1"
+                            class="block text-gray-700 text-sm font-bold mb-2">Harga</label>
                         <input type="text"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="harga-{{ $index }}" placeholder="Enter Harga"

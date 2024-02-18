@@ -23,7 +23,7 @@ return new class extends Migration
             // Ini adalah kolom untuk menyimpan nama file foto dengan panjang maksimal 255 karakter
             $table->string('foto', 255);
             // ini adalah kolom untuk menyimpan status pembayaran
-            $table->enum('status', ['Belum Dikonfirmasi', 'Dikonfirmasi', 'Ditolak'])->default('Belum Dikonfirmasi');
+            $table->enum('status', ['Proses Verifikasi', 'Disetujui', 'Ditolak'])->default('Proses Verifikasi');
             // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });

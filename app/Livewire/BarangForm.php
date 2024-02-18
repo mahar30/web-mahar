@@ -15,13 +15,12 @@ class BarangForm extends ModalComponent
 
     public Barang $barang;
 
-    public $nama_barang, $keterangan, $gambar, $status, $gambar_url, $stock;
+    public $nama_barang, $keterangan, $gambar, $status, $gambar_url;
 
     protected $rules = [
         'nama_barang' => 'required',
         'keterangan' => 'required',
-        'stock' => 'required|numeric',
-        'gambar' => 'nullable|sometimes|image|max:2048|mimes:jpg,jpeg,png,gif',
+        'gambar' => 'image|max:2048|mimes:jpg,jpeg,png,gif',
         'status' => 'required',
     ];
 
@@ -34,7 +33,6 @@ class BarangForm extends ModalComponent
     {
         $this->nama_barang = '';
         $this->keterangan = '';
-        $this->stock = '';
         $this->gambar = '';
         $this->status = '';
     }
@@ -70,7 +68,7 @@ class BarangForm extends ModalComponent
         if ($this->barang->exists) {
             $this->nama_barang = $this->barang->nama_barang;
             $this->keterangan = $this->barang->keterangan;
-            $this->stock = $this->barang->stock;
+
             $this->status = $this->barang->status;
 
             // Menambahkan URL gambar

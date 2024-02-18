@@ -61,7 +61,6 @@ final class BarangTable extends PowerGridComponent
             ->add('id')
             ->add('nama_barang')
             ->add('keterangan')
-            ->add('stock')
             ->add('gambar')
             ->add('status');
     }
@@ -74,10 +73,6 @@ final class BarangTable extends PowerGridComponent
                 ->searchable(),
 
             Column::make('Nama barang', 'nama_barang')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('Stock', 'stock')
                 ->sortable()
                 ->searchable(),
 

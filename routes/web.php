@@ -27,6 +27,11 @@ Route::get('/produk', function () {
     return view('produk', compact('barang'));
 });
 
+Route::get('/detail-produk/{id}', function ($id) {
+    $barang = Barang::findOrFail($id);
+    return view('detail-produk', compact('barang'));
+})->name('detail-produk');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -63,7 +68,12 @@ Route::middleware([
     Route::get('/rekening', function () {
         return view('rekening');
     })->name('rekening');
+
     Route::get('/transaksi', function () {
         return view('transaksi');
     })->name('transaksi');
+
+    Route::get('/keranjang', function () {
+        return view('keranjang');
+    })->name('keranjang');
 });

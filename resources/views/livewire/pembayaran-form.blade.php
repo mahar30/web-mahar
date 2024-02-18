@@ -6,7 +6,7 @@
                     <div class="mb-4">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Nama
                             Nasabah</label>
-                        <input type="hidden" name="user_id" wire:model="user_id" value="{{ auth()->user()->id }}">
+                        <input type="hidden" name="user_id" wire:model="user_id">
 
                         <input type="text" name="user_nama" id="user_nama"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -20,7 +20,7 @@
                             Transaksi</label>
                         <input type="text" name="transaksi_id" wire:model="transaksi_id"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            readonly value="{{ $transaksi_id }}">
+                            readonly>
                         @error('user_id')
                             <span class="text-red-500">{{ $message }}</span>
                         @enderror
@@ -32,7 +32,7 @@
                             <select wire:model="rekening_id" wire:change="getRekeningDetails($event.target.value)"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 placeholder="Pilih Rekening">
-                                <option value="" disabled readonly>-- Pilih Rekening --
+                                <option value="" selected readonly>-- Pilih Rekening --
                                 </option>
                                 @foreach ($rekening as $rek)
                                     <option value="{{ $rek->id }}">{{ $rek->nama_bank }}</option>
@@ -71,12 +71,8 @@
                                 photoPreview = e.target.result;
                             };
                             reader.readAsDataURL($refs.foto.files[0]);
+                            console.log($refs.foto.files[0]);
                         " />
-                        @if ($pembayaran && $pembayaran->foto)
-                            <x-button emerald class="mt-2">
-                                <a href="{{ $foto_url }}" download>Download</a>
-                            </x-button>
-                        @endif
                         @error('foto')
                             <span class="text-red-500">{{ $message }}</span>
                         @enderror
@@ -88,11 +84,9 @@
                         <select wire:model.defer="status"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="status">
-                            <option value="">Pilih Status</option>
-                            <option value="Belum Dikonfirmasi">Belum Dikonfirmasi</option>
-                            <option value="Terkonfirmasi">Terkonfirmasi</option>
-                            <option value="Pengerjaan">Pengerjaan</option>
-                            <option value="Selesai">Selesai</option>
+                            <option value="Proses Verifikasi">Proses Verifikasi</option>
+                            <option value="Disetujui">Disetujui</option>
+                            <option value="Ditolak">Ditolak</option>
                         </select>
                         @error('status')
                             <span class="text-red-500">{{ $message }}</span>
