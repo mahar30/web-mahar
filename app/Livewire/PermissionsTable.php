@@ -16,6 +16,7 @@ use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
+use Spatie\Permission\Models\Permission;
 
 final class PermissionsTable extends PowerGridComponent
 {
@@ -38,7 +39,7 @@ final class PermissionsTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Permissions::query();
+        return Permission::query();
     }
 
     public function relationSearch(): array
@@ -75,13 +76,7 @@ final class PermissionsTable extends PowerGridComponent
         return [];
     }
 
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
-    {
-        $this->js('alert(' . $rowId . ')');
-    }
-
-    public function actions(\App\Models\Permissions $row): array
+    public function actions(Permission $row): array
     {
         return [
             Button::add('edit')
@@ -157,7 +152,7 @@ final class PermissionsTable extends PowerGridComponent
     // Function to delete data
     public function delete($rowId)
     {
-        $permissions = Permissions::findOrFail($rowId);
+        $permissions = Permission::findOrFail($rowId);
         $permissions->delete();
     }
 }

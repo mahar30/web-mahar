@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -17,7 +18,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-
+    use HasRoles;
     /**
      * The attributes that are mass assignable.
      *
@@ -32,7 +33,6 @@ class User extends Authenticatable
         'name', // Ini adalah nama pengguna
         'email', // Ini adalah alamat email pengguna
         'password', // Ini adalah password pengguna (dihash)
-        'role_id', // Ini adalah ID peran (Role) dari pengguna
     ];
     /**
      * The attributes that should be hidden for serialization.
@@ -90,13 +90,5 @@ class User extends Authenticatable
     public function transaksi()
     {
         return $this->hasMany(Transaksi::class);
-    }
-
-    // Hubungan "belongsTo" dengan model Roles
-    // Ini mengindikasikan bahwa satu pengguna (User) memiliki satu peran (Role)
-    // Parameter kedua adalah nama kolom yang menghubungkan pengguna dengan peran (dalam hal ini, 'roles_id')
-    public function roles()
-    {
-        return $this->belongsTo(Roles::class, 'role_id');
     }
 }

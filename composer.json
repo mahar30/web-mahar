@@ -18,6 +18,7 @@
         "openspout/openspout": "^4.23",
         "power-components/livewire-powergrid": "^5.3",
         "robsontenorio/mary": "^1.20",
+        "spatie/laravel-permission": "^6.3",
         "wire-elements/modal": "^2.0",
         "wireui/wireui": "^1.18"
     },
