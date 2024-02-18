@@ -3,20 +3,33 @@
         <tbody>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Id Pembayaran</td>
-                <td class="border px-4 py-2">{{ $row->id}}</td>
+                <td class="border px-4 py-2">{{ $row->id }}</td>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Nama Pembeli</td>
-                <td class="border px-4 py-2">{{ $row->name }}</td>
+                <td class="border px-4 py-2">{{ $row->user->name }}</td>
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Foto</td>
-                <td class="border px-4 py-2"><img src="{{ $row->foto }}" alt="Foto" style="width: 100px; height: 100px;"></td>
+                <td class="border px-4 py-2"><img src="{{ $row->foto }}" alt="Foto"
+                        style="width: 100px; height: 100px;"></td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Nama Bank</td>
+                <td class="border px-4 py-2">{{ $row->rekening->nama_bank }}</td>
+            <tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Nama Rekening</td>
-                <td class="border px-4 py-2">{{ $row->nama_rekening }}</td>
+                <td class="border px-4 py-2">{{ $row->rekening->nama_rekening }}</td>
+            <tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">No Rekening</td>
+                <td class="border px-4 py-2">{{ $row->rekening->no_rekening }}</td>
+            </tr>
+
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Total Harga</td>
-                <td class="border px-4 py-2">{{ $row->total_harga }}</td>
+                <td class="border px-4 py-2">Rp {{ number_format($row->transaksi->total_harga, 0, ',', '.') }}</td>
+            </tr>
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Status</td>

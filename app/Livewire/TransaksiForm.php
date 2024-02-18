@@ -53,6 +53,9 @@ class TransaksiForm extends ModalComponent
         if ($this->updatingStatusOnly) {
             $validated = $this->validate(['status' => 'required']);
             $this->transaksi->status = $validated['status'];
+            $this->transaksi->save();
+
+            $this->success('Status transaksi berhasil diubah');
         } else {
             $validated = $this->validate();
 
@@ -83,22 +86,24 @@ class TransaksiForm extends ModalComponent
                     'harga' => $harga,
                 ]);
             }
+
+            // Dapatkan ID User yang Sedang Login
+            $userId = auth()->user()->id;
+
+            // Hapus Semua Data Keranjang yang Berkaitan dengan User
+            Keranjang::where('user_id', $userId)->delete();
+
+            $this->success($transaksi->wasRecentlyCreated ? 'Transaksi berhasil dibuat dan Keranjang telah dibersihkan' : 'Transaksi berhasil diubah');
         }
-        // $this->transaksi->save();
 
-        // Dapatkan ID User yang Sedang Login
-        $userId = auth()->user()->id;
-
-        // Hapus Semua Data Keranjang yang Berkaitan dengan User
-        Keranjang::where('user_id', $userId)->delete();
-
-        $this->success($transaksi->wasRecentlyCreated ? 'Transaksi berhasil dibuat dan Keranjang telah dibersihkan' : 'Transaksi berhasil diubah');
 
         $this->closeModalWithEvents([
-            TransaksiTable::class => 'transaksiUpdated'
+            TransaksiTable::class => 'transaksiUpdated',
         ]);
 
-        redirect()->route('transaksi');
+        if (!$this->updatingStatusOnly) {
+            redirect()->route('transaksi');
+        }
     }
 
     public function mount($rowId = null, $updatingStatusOnly = false, $keranjangIds = null)

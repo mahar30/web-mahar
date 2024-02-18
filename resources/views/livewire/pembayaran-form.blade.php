@@ -88,11 +88,9 @@
                         <select wire:model.defer="status"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="status">
-                            <option value="">Pilih Status</option>
                             <option value="Belum Dikonfirmasi">Belum Dikonfirmasi</option>
-                            <option value="Terkonfirmasi">Terkonfirmasi</option>
-                            <option value="Pengerjaan">Pengerjaan</option>
-                            <option value="Selesai">Selesai</option>
+                            <option value="Dikonfirmasi">Dikonfirmasi</option>
+                            <option value="Ditolak">Ditolak</option>
                         </select>
                         @error('status')
                             <span class="text-red-500">{{ $message }}</span>

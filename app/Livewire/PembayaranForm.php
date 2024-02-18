@@ -59,9 +59,15 @@ class PembayaranForm extends ModalComponent
 
     public function store()
     {
-        $validated = $this->validate();
-        $this->pembayaran->fill($validated);
-        $this->pembayaran->save();
+        if ($this->updatingStatusOnly) {
+            $validated = $this->validate(['status' => 'required']);
+            $this->pembayaran->status = $validated['status'];
+            $this->pembayaran->save();
+        } else {
+            $validated = $this->validate();
+            $this->pembayaran->fill($validated);
+            $this->pembayaran->save();
+        }
 
         $this->success($this->pembayaran->wasRecentlyCreated ? 'Pembayaran berhasil dibuat' : 'Pembayaran berhasil diubah');
 
@@ -81,7 +87,7 @@ class PembayaranForm extends ModalComponent
             if ($updatingStatusOnly) {
                 $this->updatingStatusOnly = $this->pembayaran->status;
             }
-            $this->transaksi_id = Transaksi::find($transaksi_id)->id;
+            $this->transaksi_id = Transaksi::find($transaksi_id);
             $this->user_id = $this->pembayaran->user_id;
             $this->rekening_id = $this->pembayaran->rekening_id;
             if ($this->pembayaran->foto) {
