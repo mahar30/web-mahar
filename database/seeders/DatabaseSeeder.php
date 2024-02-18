@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
         $this->call(RolePermissionsSeeder::class);
         $this->call(BarangSeeder::class);
         $this->call(UkuranSeeder::class);
-        $this->call(UkuranCustomSeeder::class);
-        $this->call(KeranjangSeeder::class);
         $this->call(RekeningSeeder::class);
-        $this->call(TransaksiSeeder::class);
-        $this->call(PembayaranSeeder::class);
-        $this->call(DetailPembeliSeeder::class);
-        $this->call(DetailtransaksiSeeder::class);
+        // $this->call(UkuranCustomSeeder::class);
+        // $this->call(KeranjangSeeder::class);
+        // $this->call(TransaksiSeeder::class);
+        // $this->call(PembayaranSeeder::class);
+        // $this->call(DetailPembeliSeeder::class);
+        // $this->call(DetailtransaksiSeeder::class);
     }
 }

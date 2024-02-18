@@ -25,11 +25,11 @@ class Transaksi extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Mendefinisikan hubungan "hasMany" dengan model Pembayaran
+    // Mendefinisikan hubungan "hasOne" dengan model Pembayaran
     // Ini mengindikasikan bahwa satu transaksi dapat memiliki banyak pembayaran
     public function pembayaran()
     {
-        return $this->hasMany(Pembayaran::class);
+        return $this->hasOne(Pembayaran::class);
     }
 
     // Mendefinisikan hubungan "hasMany" dengan model Detailtransaksi

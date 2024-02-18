@@ -13,41 +13,38 @@
                 <td class="border px-4 py-2 text-sm font-semibold">Total Harga</td>
                 <td class="border px-4 py-2">{{ $row->total_harga }}</td>
             </tr>
-            <td class="border px-4 py-2 text-sm font-semibold">Status</td>
-            <td class="border px-4 py-2">{{ $row->status }}</td>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Status Transaksi</td>
+                <td class="border px-4 py-2">{{ $row->status }}</td>
             </tr>
             <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Detail Transaksi</td>
-                <td class="border px-4 py-2">
-                    @foreach ($row->detailtransaksi as $detail)
-                        <table class="table-auto w-full mb-2">
-                            <tbody>
-                                <tr>
-                                    <td class="border px-4 py-2 text-sm font-semibold"> Barang </td>
-                                    <td class="border px-4 py-2">{{ $row->detailtransaksi->count() }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="border px-4 py-2 text-sm font-semibold">Nama Barang</td>
-                                    <td class="border px-4 py-2">{{ $detail->nama_barang }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="border px-4 py-2 text-sm font-semibold">Ukuran</td>
-                                    <td class="border px-4 py-2">{{ $detail->ukuran }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="border px-4 py-2 text-sm font-semibold">Jumlah</td>
-                                    <td class="border px-4 py-2">{{ $detail->jumlah }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="border px-4 py-2 text-sm font-semibold">Harga Satuan</td>
-                                    <td class="border px-4 py-2">
-                                        {{ 'Rp ' . number_format($detail->harga, 0, ',', '.') }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    @endforeach
-                </td>
+                <td class="border px-4 py-2 text-sm font-semibold">Status Pembayaran</td>
+                <td class="border px-4 py-2">{{ optional($row->pembayaran)->status }}</td>
             </tr>
         </tbody>
     </table>
+    <table class="table-auto w-full my-3">
+        <thead>
+            <tr>
+                <th class="border b-2 px-4 py-2 text-sm font-bold text-center" colspan="4">Detail Transaksi</th>
+            </tr>
+            <tr>
+                <th class="border b-2 px-4 py-2 text-sm font-semibold">Nama Barang</th>
+                <th class="border b-2 px-4 py-2 text-sm font-semibold">Ukuran</th>
+                <th class="border b-2 px-4 py-2 text-sm font-semibold">Jumlah</th>
+                <th class="border b-2 px-4 py-2 text-sm font-semibold">Harga Satuan</th>
+            </tr>
+        <tbody>
+            @foreach ($row->detailtransaksi as $detail)
+                <tr>
+                    <td class="border px-4 py-2">{{ $detail->nama_barang }}</td>
+                    <td class="border px-4 py-2">{{ $detail->ukuran }}</td>
+                    <td class="border px-4 py-2">{{ $detail->jumlah }}</td>
+                    <td class="border px-4 py-2">
+                        {{ 'Rp ' . number_format($detail->harga, 0, ',', '.') }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
 </div>

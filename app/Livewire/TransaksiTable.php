@@ -45,7 +45,7 @@ final class TransaksiTable extends PowerGridComponent
     public function datasource(): Builder
     {
         return Transaksi::query()
-            ->with('detailtransaksi')
+            ->with(['detailtransaksi', 'pembayaran'])
             ->join('users', 'transaksi.user_id', '=', 'users.id')
             ->select('transaksi.*', 'users.name as name', 'users.id as user_id');;
     }
