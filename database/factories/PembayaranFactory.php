@@ -24,7 +24,7 @@ class PembayaranFactory extends Factory
             'user_id' => User::all()->random()->id,
             'rekening_id' => Rekening::all()->random()->id,
             'foto' => $this->faker->imageUrl(640, 480), // menghasilkan URL ke gambar acak dengan lebar 640px dan tinggi 480px
-            'status' => $this->faker->randomElement(['Belum Dikonfirmasi', 'Dikonfirmasi', 'Ditolak']),
+            'status' => $this->faker->randomElement(['Proses Verifikasi', 'Disetujui', 'Ditolak']),
         ];
     }
 }
