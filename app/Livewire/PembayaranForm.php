@@ -43,7 +43,7 @@ class PembayaranForm extends ModalComponent
     protected $rules = [
         'transaksi_id' => 'required|exists:transaksi,id',
         'user_id' => 'required|exists:users,id',
-        'rekening_id' => 'required|rekening,id',
+        'rekening_id' => 'required|exists:rekening,id',
         'foto' => 'required',
         'status' => 'required',
     ];
@@ -65,6 +65,16 @@ class PembayaranForm extends ModalComponent
             $this->pembayaran->save();
         } else {
             $validated = $this->validate();
+
+            if ($this->foto) {
+                if ($this->pembayaran->exists && $this->pembayaran->foto) {
+                    Storage::disk('public')->delete($this->pembayaran->foto);
+                }
+                $validated['foto'] = $this->foto->store('foto-pembayaran', 'public');
+            } else {
+                $validated['foto'] = $this->pembayaran->foto;
+            }
+
             $this->pembayaran->fill($validated);
             $this->pembayaran->save();
         }
@@ -87,12 +97,13 @@ class PembayaranForm extends ModalComponent
             if ($updatingStatusOnly) {
                 $this->status = $this->pembayaran->status;
             }
-            $this->transaksi_id = Transaksi::find($transaksi_id);
-            $this->user_id = $this->pembayaran->user_id;
-            $this->rekening_id = $this->pembayaran->rekening_id;
-            if ($this->pembayaran->foto) {
-                $this->foto_url = Storage::disk('public')->url($this->pembayaran->foto);
-            }
+        }
+
+        if ($transaksi_id) {
+            $this->pembayaran = new Pembayaran();
+            $this->transaksi_id = $transaksi_id;
+            $this->user_id = auth()->user()->id;
+            $this->status = 'Belum Dikonfirmasi';
         }
     }
 

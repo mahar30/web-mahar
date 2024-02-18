@@ -10,8 +10,14 @@
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Foto</td>
-                <td class="border px-4 py-2"><img src="{{ $row->foto }}" alt="Foto"
-                        style="width: 100px; height: 100px;"></td>
+                <td class="border px-4 py-2">
+                    <img src="{{ asset('storage/' . $row->foto) }}" alt="Gambar" class="w-32 h-32 object-cover mb-5">
+                    <x-button>
+                        <a href="{{ asset('storage/' . $row->foto) }}" download>
+                            Download
+                        </a>
+                    </x-button>
+                </td>
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Nama Bank</td>

@@ -181,8 +181,6 @@ final class PembayaranTable extends PowerGridComponent
     public function delete($rowId)
     {
         $pembayaran = Pembayaran::findOrFail($rowId);
-        // Detach all associated users
-        $pembayaran->user()->detach();
         $pembayaran->delete();
     }
 }
