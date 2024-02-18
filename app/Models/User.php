@@ -91,4 +91,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaksi::class);
     }
+
+    protected function getDefaultGuardName(): string
+    {
+        return 'web';
+    }
 }
