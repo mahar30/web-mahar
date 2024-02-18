@@ -63,13 +63,13 @@ class KeranjangForm extends ModalComponent
         $validated = $this->validate();
         $this->keranjang->fill($validated);
 
-        $ukuran = Ukuran::find($this->ukuran_id);
-        $ukuran->stock -= $this->jumlah;
-        $ukuran->save();
 
         if ($this->tipe_ukuran === 'standar') {
-            // $this->keranjang->ukuran_id = $this->ukuran_id;
             $this->keranjang->ukuran_custom_id = null;
+
+            $ukuran = Ukuran::find($this->ukuran_id);
+            $ukuran->stock -= $this->jumlah;
+            $ukuran->save();
         } else {
             $this->keranjang->ukuran_id = null;
             $ukuranCustom = UkuranCustom::create([

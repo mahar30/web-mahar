@@ -20,7 +20,9 @@ class UkuranFactory extends Factory
         return [
             'barang_id' => Barang::all()->random()->id,
             'ukuran' => $this->faker->randomElement(['Kecil', 'Sedang', 'Besar']),
-            'deskripsi' => $this->faker->randomElement(['10cm x 10 cm x 10cm', '20cm x 20 cm x 20cm', '30cm x 30 cm x 30cm']),
+            'panjang' => $this->faker->randomNumber(2),
+            'lebar' => $this->faker->randomNumber(2),
+            'tinggi' => $this->faker->randomNumber(2),
             'stock' => $this->faker->randomNumber(2),
             'harga' => $this->faker->randomNumber(6),
         ];

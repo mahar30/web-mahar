@@ -29,7 +29,9 @@ class UkuranForm extends ModalComponent
         $this->ukuranItems[] = [
             'barang_id' => '',
             'ukuran' => '',
-            'deskripsi' => '',
+            'panjang' => '',
+            'lebar' => '',
+            'tinggi' => '',
             'stock' => '',
             'harga' => '',
         ];
@@ -51,7 +53,9 @@ class UkuranForm extends ModalComponent
         $validatedData = $this->validate([
             'barang_id' => 'required',
             'ukuranItems.*.ukuran' => 'required',
-            'ukuranItems.*.deskripsi' => 'required',
+            'ukuranItems.*.panjang' => 'required|numeric|min:1',
+            'ukuranItems.*.lebar' => 'required|numeric|min:1',
+            'ukuranItems.*.tinggi' => 'required|numeric|min:1',
             'ukuranItems.*.stock' => 'required|numeric',
             'ukuranItems.*.harga' => 'required',
         ]);
@@ -88,7 +92,9 @@ class UkuranForm extends ModalComponent
             $this->ukuranItems = [
                 [
                     'ukuran' => $this->ukuran->ukuran,
-                    'deskripsi' => $this->ukuran->deskripsi,
+                    'panjang' => $this->ukuran->panjang,
+                    'lebar' => $this->ukuran->lebar,
+                    'tinggi' => $this->ukuran->tinggi,
                     'stock' => $this->ukuran->stock,
                     'harga' => $this->ukuran->harga,
                 ]

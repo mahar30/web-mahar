@@ -47,7 +47,9 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->ukuran }}</td>
-                                    <td>{{ $item->deskripsi }}</td>
+                                    <td class="border px-4 py-2">{{ $item->panjang }} cm x
+                                        {{ $item->lebar }} cm x
+                                        {{ $item->tinggi }} cm</td>
                                     <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                                 </tr>
                             @endforeach

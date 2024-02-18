@@ -25,7 +25,7 @@
                                     <label for="ukuran" class="form-label">Ukuran</label>
                                     @if ($ukuranStandar[$keranjangItem->id])
                                         <input type="text" id="ukuran" name="ukuran"
-                                            value="{{ $keranjangItem->ukuran->deskripsi }}"
+                                            value="{{ $keranjangItem->ukuran->panjang }} cm x {{ $keranjangItem->ukuran->lebar }} cm x {{ $keranjangItem->ukuran->tinggi }} cm"
                                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             readonly>
                                     @else
@@ -35,7 +35,7 @@
                                             readonly>
                                     @endif
                                 </div>
-                                <div class="col-span-2">
+                                <div class="col-span-1">
                                     <label for="harga" class="form-label">Harga Satuan</label>
                                     @if ($hargaStandar[$keranjangItem->id])
                                         <input type="text" id="ukuran" name="ukuran"
@@ -49,7 +49,7 @@
                                             readonly>
                                     @endif
                                 </div>
-                                <div class="col-span-2">
+                                <div class="col-span-1">
                                     <label for="total_harga" class="form-label">Total Harga</label>
                                     <input type="text" id="total_harga" name="total_harga"
                                         value="{{ $totalHargaItems[$keranjangItem->id] }}"
@@ -69,7 +69,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status</label>
+                        <label for="status" class="form-label">Status</label>
                         <input wire:model.defer="status" type="text" id="status" name="status"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         @error('status')

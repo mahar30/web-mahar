@@ -23,7 +23,7 @@
                 <td class="border px-4 py-2 text-sm font-semibold">Volume (Panjang x Lebar x Tinggi)</td>
                 <td class="border px-4 py-2">
                     @if ($row->ukuran_id)
-                        {{ $row->ukuran->deskripsi }}
+                        {{ $row->ukuran->panjang }} cm x {{ $row->ukuran->lebar }} cm x {{ $row->ukuran->tinggi }} cm
                     @else
                         {{ $row->ukuran_custom->panjang }} cm x {{ $row->ukuran_custom->lebar }} cm x
                         {{ $row->ukuran_custom->tinggi }} cm
