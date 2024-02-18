@@ -85,7 +85,7 @@ class PembayaranForm extends ModalComponent
             $this->pembayaran = Pembayaran::find($rowId);
 
             if ($updatingStatusOnly) {
-                $this->updatingStatusOnly = $this->pembayaran->status;
+                $this->status = $this->pembayaran->status;
             }
             $this->transaksi_id = Transaksi::find($transaksi_id);
             $this->user_id = $this->pembayaran->user_id;
