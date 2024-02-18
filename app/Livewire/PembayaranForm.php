@@ -104,6 +104,10 @@ class PembayaranForm extends ModalComponent
             $this->transaksi_id = $transaksi_id;
             $this->user_id = auth()->user()->id;
             $this->status = 'Belum Dikonfirmasi';
+
+            if ($this->foto) {
+                $this->foto_url = Storage::disk('public')->url($this->foto);
+            }
         }
     }
 
