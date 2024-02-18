@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -20,6 +21,7 @@ use Spatie\Permission\Models\Role;
 final class RolesTable extends PowerGridComponent
 {
     use WithExport;
+    use Toastable;
 
     public function setUp(): array
     {
@@ -52,7 +54,9 @@ final class RolesTable extends PowerGridComponent
         return PowerGrid::fields()
             ->add('id')
             ->add('name')
-            ->add('permissions.name')
+            ->add('permissions', function (Role $role) {
+                return $role->permissions->pluck('name')->join(', ');
+            })
             ->add('created_at');
     }
 
@@ -63,7 +67,7 @@ final class RolesTable extends PowerGridComponent
             Column::make('Name', 'name')
                 ->sortable()
                 ->searchable(),
-            Column::make('Permissions', 'permissions.name')
+            Column::make('Permissions', 'permissions', 'permissions')
                 ->sortable(),
             Column::make('Created at', 'created_at')
                 ->sortable()
@@ -155,8 +159,8 @@ final class RolesTable extends PowerGridComponent
     public function delete($rowId)
     {
         $role = Role::findOrFail($rowId);
-        // Detach all associated permissions
-        $role->permissions()->detach();
+        $role->revokePermissionTo($role->permissions);
         $role->delete();
+        $this->success('Role telah berhasil dihapus.');
     }
 }

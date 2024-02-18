@@ -2,10 +2,10 @@
 
 namespace App\Livewire;
 
-use App\Models\Permissions;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -21,6 +21,7 @@ use Spatie\Permission\Models\Permission;
 final class PermissionsTable extends PowerGridComponent
 {
     use WithExport;
+    use Toastable;
 
     public function setUp(): array
     {
@@ -152,7 +153,12 @@ final class PermissionsTable extends PowerGridComponent
     // Function to delete data
     public function delete($rowId)
     {
-        $permissions = Permission::findOrFail($rowId);
-        $permissions->delete();
+        try {
+            $permission = Permission::findOrFail($rowId);
+            $permission->delete();
+            $this->success('Permission berhasil dihapus.');
+        } catch (\Exception $e) {
+            $this->error('Terjadi kesalahan saat menghapus permission.' . $e->getMessage());
+        }
     }
 }

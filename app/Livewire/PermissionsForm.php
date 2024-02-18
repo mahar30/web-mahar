@@ -2,17 +2,19 @@
 
 namespace App\Livewire;
 
-use App\Models\Permissions;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
+use Masmerise\Toaster\Toastable;
+use Spatie\Permission\Models\Permission;
 
 class PermissionsForm extends ModalComponent
 {
+    use Toastable;
     public $permissions, $id, $name;
 
     public function render()
     {
-        $permissions = Permissions::all();
+        $permissions = Permission::all();
         return view('livewire.permissions-form', compact('permissions'));
     }
 
@@ -27,22 +29,16 @@ class PermissionsForm extends ModalComponent
             'name' => 'required|min:3',
         ]);
 
-        if ($this->id) {
-            $permissions = Permissions::find($this->id);
-            $permissions->update([
-                'name' => $this->name,
-            ]);
-        } else {
-            Permissions::create([
-                'name' => $this->name,
-            ]);
-        }
-
-        session()->flash('message', $this->permissions ? 'Permissions updated.' : 'Permissions created.');
+        $permissions = Permission::updateOrCreate(
+            ['id' => $this->id],
+            ['name' => $this->name, 'guard_name' => 'web']
+        );
 
         $this->closeModalWithEvents([
             PermissionsTable::class => 'permissionsUpdated',
         ]);
+
+        $this->success($permissions->wasRecentlyCreated ? 'Permission telah berhasil dibuat.' : 'Permission telah berhasil diupdate.');
 
         $this->resetCreateForm();
     }
@@ -50,7 +46,7 @@ class PermissionsForm extends ModalComponent
     public function mount($rowId = null)
     {
         if (!is_null($rowId)) {
-            $permissions = Permissions::findOrFail($rowId);
+            $permissions = Permission::findOrFail($rowId);
             $this->id = $rowId;
             $this->name = $permissions->name;
         }
