@@ -65,9 +65,16 @@ class KeranjangForm extends ModalComponent
 
 
         if ($this->tipe_ukuran === 'standar') {
-            $this->keranjang->ukuran_custom_id = null;
 
             $ukuran = Ukuran::find($this->ukuran_id);
+
+            // Pengecekan stok
+            if ($ukuran->stock < $this->jumlah) {
+                $this->error('Stok tidak mencukupi');
+                return; // Hentikan eksekusi lebih lanjut
+            }
+            $this->keranjang->ukuran_custom_id = null;
+
             $ukuran->stock -= $this->jumlah;
             $ukuran->save();
         } else {
