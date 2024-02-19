@@ -54,6 +54,8 @@ class RolesForm extends ModalComponent
         $this->success($role->wasRecentlyCreated ? 'Role telah berhasil dibuat.' : 'Role telah berhasil diupdate.');
 
         $this->resetCreateForm();
+
+        $this->dispatch('roles-updated');
     }
 
     public function mount($rowId = null)
