@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Barang;
+use App\Models\Rekening;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +40,10 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $userCount = User::count();
+        $barangCount = Barang::count();
+        $rekeningCount = Rekening::count();
+        return view('dashboard', compact('userCount', 'barangCount', 'rekeningCount'));
     })->name('dashboard');
 
     Route::get('/permissions', function () {
