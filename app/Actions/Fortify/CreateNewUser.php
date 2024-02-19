@@ -36,6 +36,9 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
+        $role = Role::firstOrCreate(['name' => 'pelanggan']);
+        $user->assignRole($role);
+
         DetailPembeli::create([
             'no_wa' => $input['no_wa'],
             'alamat' => $input['alamat'],
