@@ -13,7 +13,7 @@
                 <x-section-border />
             @endif
 
-            @if (auth()->user()->roles->name === 'Pelanggan')
+            @if (auth()->user()->hasRole('pelanggan'))
                 <div class="mt-10 sm:mt-0">
                     @livewire('update-detail-pelanggan')
                 </div>
