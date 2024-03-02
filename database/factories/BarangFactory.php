@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class BarangFactory extends Factory
 {
+    protected static $counter = 1; // Start counter at 1
+
     /**
      * Define the model's default state.
      *
@@ -16,13 +18,11 @@ class BarangFactory extends Factory
      */
     public function definition(): array
     {
-        $i = 1;
         return [
-            'nama_barang' => "Barang-$i",
+            'nama_barang' => "Barang-" . static::$counter++,
             'keterangan' => $this->faker->text,
             'gambar' => $this->faker->imageUrl(640, 480),
             'status' => $this->faker->randomElement(['Aktif', 'Tidak Aktif']),
         ];
-        $i++;
     }
 }

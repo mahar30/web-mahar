@@ -22,7 +22,7 @@ return new class extends Migration
             // Ini adalah kolom untuk menyimpan jumlah dalam bentuk bilangan bulat (integer)
             $table->integer('jumlah');
             // Ini adalah kolom untuk menyimpan ukuran dengan panjang maksimal 100 karakter
-            $table->string('ukuran', 100);
+            $table->string('ukuran', 255);
             // Ini adalah kolom untuk menyimpan harga dalam bentuk bilangan bulat (integer)
             $table->integer('harga');
             // Ini adalah timestamp untuk createdAt dan updatedAt

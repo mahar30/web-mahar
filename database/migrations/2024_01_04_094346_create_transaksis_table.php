@@ -19,7 +19,7 @@ return new class extends Migration
             // Ini adalah kolom untuk menyimpan total harga dalam bentuk bilangan bulat (integer)
             $table->integer('total_harga');
             // Ini adalah kolom untuk menyimpan status transaksi dengan panjang maksimal 100 karakter
-            $table->enum('status', ['Belum Terbayar', 'Sudah Terbayar', 'Dikonfirmasi', 'Selesai'])->default('Belum Terbayar');
+            $table->enum('status', ['Dalam Proses', 'Dikerjakan', 'Selesai'])->default('Dalam Proses');
             // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });

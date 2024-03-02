@@ -10,10 +10,6 @@
                 <td class="border px-4 py-2">{{ $row->keterangan }}</td>
             </tr>
             <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Stock</td>
-                <td class="border px-4 py-2">{{ $row->stock }}</td>
-            </tr>
-            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">status</td>
                 <td class="border px-4 py-2">{{ $row->status }}</td>
             </tr>
@@ -38,8 +34,10 @@
     <table class="table-auto w-full mt-5">
         <thead>
             <tr>
-                <th class="border px-4 py-2 text-sm font-semibold">Ukuran (m&#179;)</th>
-                <th class="border px-4 py-2 text-sm font-semibold">Harga (m&#179;)</th>
+                <th class="border px-4 py-2 text-sm font-semibold">Ukuran</th>
+                <th class="border px-4 py-2 text-sm font-semibold">Panjang x Lebar x Tinggi</th>
+                <th class="border px-4 py-2 text-sm font-semibold">Stock</th>
+                <th class="border px-4 py-2 text-sm font-semibold">Harga</th>
                 <th class="border px-4 py-2 text-sm font-semibold">Action</th> <!-- Add this line -->
             </tr>
         </thead>
@@ -47,6 +45,9 @@
             @foreach ($row->ukuran as $ukuran)
                 <tr>
                     <td class="border px-4 py-2">{{ $ukuran->ukuran }}</td>
+                    <td class="border px-4 py-2">{{ $ukuran->panjang }} cm x {{ $ukuran->lebar }} cm x
+                        {{ $ukuran->tinggi }} cm</td>
+                    <td class="border px-4 py-2">{{ $ukuran->stock }}</td>
                     <td class="border px-4 py-2">Rp {{ number_format($ukuran->harga, 0, ',', '.') }}</td>
                     <td class="border px-4 py-2"> <!-- Add this cell -->
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

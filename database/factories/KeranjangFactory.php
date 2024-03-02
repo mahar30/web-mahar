@@ -26,7 +26,6 @@ class KeranjangFactory extends Factory
             'ukuran_id' => Ukuran::all()->random()->id,
             'ukuran_custom_id' => UkuranCustom::all()->random()->id,
             'jumlah' => $this->faker->randomNumber(),
-            'status' => $this->faker->randomElement(['Aktif', 'Tidak Aktif']),
         ];
     }
 }

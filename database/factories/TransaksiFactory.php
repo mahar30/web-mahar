@@ -20,7 +20,7 @@ class TransaksiFactory extends Factory
         return [
             'user_id' => User::all()->random()->id,
             'total_harga' => $this->faker->randomNumber(),
-            'status' => $this->faker->randomElement(['Belum Terbayar', 'Sudah Terbayar', 'Dikonfirmasi', 'Selesai']),
+            'status' => $this->faker->randomElement(['Dalam Proses', 'Dikerjakan', 'Selesai']),
         ];
     }
 }

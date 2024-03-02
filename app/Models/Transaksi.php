@@ -25,11 +25,11 @@ class Transaksi extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Mendefinisikan hubungan "hasMany" dengan model Pembayaran
+    // Mendefinisikan hubungan "hasOne" dengan model Pembayaran
     // Ini mengindikasikan bahwa satu transaksi dapat memiliki banyak pembayaran
     public function pembayaran()
     {
-        return $this->hasMany(Pembayaran::class);
+        return $this->hasOne(Pembayaran::class);
     }
 
     // Mendefinisikan hubungan "hasMany" dengan model Detailtransaksi
@@ -39,10 +39,16 @@ class Transaksi extends Model
         return $this->hasMany(Detailtransaksi::class);
     }
 
-    public function getDetailtransaksiSummaryAttribute()
+    // Mendapatkan total harga yang diformat
+    public function getFormattedTotalHargaAttribute(): string
     {
-        return $this->detailtransaksi->map(function ($detail) {
-            return "ukuran: {$detail->ukuran}, <br> Jumlah: {$detail->jumlah}, <br> Nama Barang: {$detail->nama_barang}, <br> Total: {$detail->total}, <br> Foto Barang: {$detail->foto_barang}";
-        })->join('; <br>');
+        return 'Rp ' . number_format($this->total_harga, 0, ',', '.');
+    }
+
+    // Menghitung dan memperbarui total harga
+    public function calculateAndUpdateTotalHarga()
+    {
+        $this->total_harga = $this->detailtransaksi->sum(fn ($detail) => $detail->harga * $detail->qty);
+        $this->save();
     }
 }

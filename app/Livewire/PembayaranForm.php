@@ -6,8 +6,8 @@ use App\Models\Pembayaran;
 use App\Models\Rekening;
 use App\Models\Transaksi;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Livewire\Component;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
 use Masmerise\Toaster\Toastable;
@@ -43,8 +43,8 @@ class PembayaranForm extends ModalComponent
     protected $rules = [
         'transaksi_id' => 'required|exists:transaksi,id',
         'user_id' => 'required|exists:users,id',
-        'rekening_id' => 'required|rekening,id',
-        'foto' => 'required',
+        'rekening_id' => 'required|exists:rekening,id',
+        'foto' => 'required|image|max:2048|mimes:jpg,jpeg,png,gif,webp,svg',
         'status' => 'required',
     ];
 
@@ -59,15 +59,50 @@ class PembayaranForm extends ModalComponent
 
     public function store()
     {
-        $validated = $this->validate();
-        $this->pembayaran->fill($validated);
-        $this->pembayaran->save();
+        // Jika ini hanya pembaruan status, validasi hanya field status
+        if ($this->updatingStatusOnly) {
+            $validatedData = $this->validate([
+                'status' => 'required',
+            ]);
+            $this->pembayaran->status = $validatedData['status'];
+            $this->pembayaran->save();
 
-        $this->success($this->pembayaran->wasRecentlyCreated ? 'Pembayaran berhasil dibuat' : 'Pembayaran berhasil diubah');
+            Log::info('Status pembayaran berhasil diubah.');
+            $this->success('Status pembayaran berhasil diubah.');
+        } else {
+            // Jika bukan hanya pembaruan status, validasi semua field yang diperlukan
+            $validatedData = $this->validate();
+
+            // Cek apakah ada pembayaran yang sudah ada dengan transaksi_id yang sama
+            $existingPembayaran = Pembayaran::where('transaksi_id', $this->transaksi_id)->first();
+
+            if ($existingPembayaran) {
+                // Jika pembayaran lama ditemukan, hapus file terkait dan rekamannya
+                Storage::disk('public')->delete($existingPembayaran->foto);
+                $existingPembayaran->delete();
+                Log::info('Pembayaran lama berhasil dihapus.');
+            }
+
+            // Proses upload foto baru jika ada
+            if (!empty($this->foto)) {
+                $validatedData['foto'] = $this->foto->store('foto-pembayaran', 'public');
+            }
+
+            // Buat pembayaran baru dan isi data
+            $this->pembayaran = new Pembayaran($validatedData);
+            $this->pembayaran->save();
+
+            Log::info('Pembayaran baru berhasil disimpan.');
+            $this->success('Pembayaran berhasil disimpan.');
+        }
 
         $this->closeModalWithEvents([
-            PembayaranTable::class => 'pembayaranUpdated'
+            PembayaranTable::class => 'pembayaranUpdated',
         ]);
+
+        if (!$this->updatingStatusOnly) {
+            redirect()->route('pembayaran');
+        }
     }
 
     public function mount($rowId = null, $updatingStatusOnly = false, $transaksi_id = null)
@@ -79,13 +114,26 @@ class PembayaranForm extends ModalComponent
             $this->pembayaran = Pembayaran::find($rowId);
 
             if ($updatingStatusOnly) {
-                $this->updatingStatusOnly = $this->pembayaran->status;
+                $this->status = $this->pembayaran->status;
             }
-            $this->transaksi_id = Transaksi::find($transaksi_id)->id;
-            $this->user_id = $this->pembayaran->user_id;
-            $this->rekening_id = $this->pembayaran->rekening_id;
-            if ($this->pembayaran->foto) {
-                $this->foto_url = Storage::disk('public')->url($this->pembayaran->foto);
+        }
+
+        if ($transaksi_id) {
+            $existingPembayaran = Pembayaran::where('transaksi_id', $transaksi_id)->first();
+            if ($existingPembayaran) {
+                $this->pembayaran = $existingPembayaran;
+                $this->transaksi_id = $transaksi_id;
+                $this->user_id = auth()->user()->id;
+                $this->status = 'Proses Verifikasi';
+            } else {
+                $this->pembayaran = new Pembayaran();
+                $this->transaksi_id = $transaksi_id;
+                $this->user_id = auth()->user()->id;
+                $this->status = 'Proses Verifikasi';
+            }
+
+            if ($this->foto) {
+                $this->foto_url = Storage::disk('public')->url($this->foto);
             }
         }
     }

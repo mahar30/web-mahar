@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Barang;
+use App\Models\Rekening;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,13 +29,26 @@ Route::get('/produk', function () {
     return view('produk', compact('barang'));
 });
 
+Route::get('/detail-produk/{id}', function ($id) {
+    $barang = Barang::findOrFail($id);
+    return view('detail-produk', compact('barang'));
+})->name('detail-produk');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        if (Gate::allows('viewAny', User::class)) {
+            $userCount = User::count();
+            $barangCount = Barang::count();
+            $rekeningCount = Rekening::count();
+            return view('dashboard', compact('userCount', 'barangCount', 'rekeningCount'));
+        } else {
+            return view('welcome');
+        }
     })->name('dashboard');
 
     Route::get('/permissions', function () {
@@ -63,7 +78,12 @@ Route::middleware([
     Route::get('/rekening', function () {
         return view('rekening');
     })->name('rekening');
+
     Route::get('/transaksi', function () {
         return view('transaksi');
     })->name('transaksi');
+
+    Route::get('/keranjang', function () {
+        return view('keranjang');
+    })->name('keranjang');
 });
