@@ -82,6 +82,7 @@ class UserForm extends ModalComponent
             $this->user_id = $this->user->id;
             $this->name = $this->user->name;
             $this->email = $this->user->email;
+            $this->role_name = $this->user->getRoleNames()->first();
         }
     }
 }

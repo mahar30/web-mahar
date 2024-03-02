@@ -39,11 +39,16 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
     Route::get('/dashboard', function () {
-        $userCount = User::count();
-        $barangCount = Barang::count();
-        $rekeningCount = Rekening::count();
-        return view('dashboard', compact('userCount', 'barangCount', 'rekeningCount'));
+        if (Gate::allows('viewAny', User::class)) {
+            $userCount = User::count();
+            $barangCount = Barang::count();
+            $rekeningCount = Rekening::count();
+            return view('dashboard', compact('userCount', 'barangCount', 'rekeningCount'));
+        } else {
+            return view('welcome');
+        }
     })->name('dashboard');
 
     Route::get('/permissions', function () {
