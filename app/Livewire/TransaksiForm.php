@@ -141,9 +141,4 @@ class TransaksiForm extends ModalComponent
             $this->total_harga = array_sum($this->totalHargaItems);
         }
     }
-
-    public static function modalMaxWidth(): string
-    {
-        return '7xl';
-    }
 }
