@@ -72,8 +72,8 @@ class BarangForm extends ModalComponent
             $this->status = $this->barang->status;
 
             // Menambahkan URL gambar
-            if ($this->barang->gambar_barang) {
-                $this->gambar_url = Storage::disk('public')->url($this->barang->gambar_barang);
+            if ($this->barang->gambar) {
+                $this->gambar_url = Storage::disk('public')->url($this->barang->gambar);
             }
         }
     }
