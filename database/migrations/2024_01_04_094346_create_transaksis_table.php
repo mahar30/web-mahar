@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             // Ini adalah kolom untuk menyimpan total harga dalam bentuk bilangan bulat (integer)
             $table->integer('total_harga');
+            // Ini adalah kolom untuk menyimpan keterangan dalam bentuk teks
+            $table->text('keterangan');
             // Ini adalah kolom untuk menyimpan status transaksi dengan panjang maksimal 100 karakter
             $table->enum('status', ['Dalam Proses', 'Dikerjakan', 'Selesai'])->default('Dalam Proses');
             // Ini adalah timestamp untuk createdAt dan updatedAt

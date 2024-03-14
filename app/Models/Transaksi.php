@@ -15,6 +15,7 @@ class Transaksi extends Model
     protected $fillable = [
         'user_id', // Ini adalah ID dari pengguna yang melakukan transaksi
         'total_harga', // Ini adalah total harga transaksi
+        'keterangan', // Ini adalah keterangan transaksi
         'status', // Ini adalah status transaksi (misalnya, dalam proses atau berhasil)
     ];
 

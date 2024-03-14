@@ -23,6 +23,8 @@ return new class extends Migration
             $table->foreignId('ukuran_custom_id')->nullable()->constrained('ukuran_custom')->onDelete('cascade');
             // Ini adalah foreign key yang mengacu pada kolom 'barang_id' pada tabel 'barang' dengan penghapusan data 'cascade'
             $table->foreignId('barang_id')->constrained('barang')->onDelete('cascade');
+            // Ini adalah kolom untuk menyimpan keterangan dalam bentuk teks
+            $table->text('keterangan');
             // Ini adalah kolom untuk menyimpan jumlah dalam bentuk bilangan bulat (integer)
             $table->integer('jumlah');
             // Ini adalah kolom untuk tipe ukuran dengan enum 'standar' dan 'custom'
