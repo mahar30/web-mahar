@@ -26,11 +26,12 @@
     <table class="table-auto w-full my-3">
         <thead>
             <tr>
-                <th class="border b-2 px-4 py-2 text-sm font-bold text-center" colspan="4">Detail Transaksi</th>
+                <th class="border b-2 px-4 py-2 text-sm font-bold text-center" colspan="5">Detail Transaksi</th>
             </tr>
             <tr>
                 <th class="border b-2 px-4 py-2 text-sm font-semibold">Nama Barang</th>
                 <th class="border b-2 px-4 py-2 text-sm font-semibold">Ukuran</th>
+                <th class="border b-2 px-4 py-2 text-sm font-semibold">Keterangan</th>
                 <th class="border b-2 px-4 py-2 text-sm font-semibold">Jumlah</th>
                 <th class="border b-2 px-4 py-2 text-sm font-semibold">Harga Satuan</th>
             </tr>
@@ -39,6 +40,7 @@
                 <tr>
                     <td class="border px-4 py-2">{{ $detail->nama_barang }}</td>
                     <td class="border px-4 py-2">{{ $detail->ukuran }}</td>
+                    <td class="border px-4 py-2">{{ $detail->keterangan }}</td>
                     <td class="border px-4 py-2">{{ $detail->jumlah }}</td>
                     <td class="border px-4 py-2">
                         {{ 'Rp ' . number_format($detail->harga, 0, ',', '.') }}</td>
