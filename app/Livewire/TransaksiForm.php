@@ -15,7 +15,7 @@ class TransaksiForm extends ModalComponent
     use Toastable;
 
     public Transaksi $transaksi;
-    public $user, $id, $user_id, $total_harga, $status, $keranjangItems, $ukuranStandar, $ukuranCustom, $hargaStandar, $hargaCustom, $totalHargaItems, $grandTotal;
+    public $user, $id, $user_id, $total_harga, $status, $keranjangItems, $ukuranStandar, $ukuranCustom, $hargaStandar, $hargaCustom, $totalHargaItems, $grandTotal, $keterangan;
     public $keranjangIds = [];
     public $updatingStatusOnly = false;
 
@@ -46,6 +46,7 @@ class TransaksiForm extends ModalComponent
         $this->user_id = '';
         $this->total_harga = '';
         $this->status = '';
+        $this->keterangan = '';
     }
 
     public function store()
@@ -84,6 +85,7 @@ class TransaksiForm extends ModalComponent
                     'jumlah' => $keranjangItem->jumlah,
                     'ukuran' => $ukuran,
                     'harga' => $harga,
+                    'keterangan' => $keranjangItem->keterangan,
                 ]);
             }
 
@@ -111,6 +113,7 @@ class TransaksiForm extends ModalComponent
         $this->keranjangIds = $keranjangIds;
         $this->updatingStatusOnly = $updatingStatusOnly;
         $this->user = User::all();
+
         if ($rowId) {
             $this->transaksi = Transaksi::find($rowId);
 
@@ -131,6 +134,7 @@ class TransaksiForm extends ModalComponent
                 $this->ukuranCustom[$keranjangItem->id] = $keranjangItem->ukuran_custom_id != null;
                 $this->hargaStandar[$keranjangItem->id] = $keranjangItem->ukuran->harga;
                 $this->hargaCustom[$keranjangItem->id] = $keranjangItem->ukuran_custom->harga;
+                $this->keterangan[$keranjangItem->id] = $keranjangItem->keterangan;
                 if ($keranjangItem->ukuran_custom_id) {
                     $this->totalHargaItems[$keranjangItem->id] = $keranjangItem->jumlah * $keranjangItem->ukuran_custom->harga;
                 } else {

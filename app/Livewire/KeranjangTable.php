@@ -63,6 +63,7 @@ final class KeranjangTable extends PowerGridComponent
             ->add('ukuran_id')
             ->add('ukuran_custom_id')
             ->add('jumlah')
+            ->add('keterangan')
             ->add('tipe_ukuran')
             ->add('created_at');
     }

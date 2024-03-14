@@ -10,6 +10,10 @@
                 <td class="border px-4 py-2">{{ $row->jumlah }}</td>
             </tr>
             <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Keterangan</td>
+                <td class="border px-4 py-2">{{ $row->keterangan }}</td>
+            </tr>
+            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Tipe Ukuran</td>
                 <td class="border px-4 py-2">{{ $row->tipe_ukuran }}</td>
             </tr>

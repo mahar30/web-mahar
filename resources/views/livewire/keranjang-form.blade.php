@@ -42,6 +42,17 @@
                     @enderror
                 </div>
 
+                <div class="mb-4">
+                    <label for="exampleFormControlInput1"
+                        class="block text-gray-700 text-sm font-bold mb-2">Keterangan</label>
+                    <textarea
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="exampleFormControlInput1" placeholder="Enter Keterangan" wire:model="keterangan"></textarea>
+                    @error('keterangan')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
+
                 <div x-data="{ tipeUkuran: '{{ $tipe_ukuran }}' }" class="mb-4">
                     <div class="form-group">
                         <label for="tipe_ukuran" class="block text-gray-700 text-sm font-bold mb-2">Tipe Ukuran</label>

@@ -14,7 +14,7 @@ class KeranjangForm extends ModalComponent
     use Toastable;
 
     public Keranjang $keranjang;
-    public $user, $barang, $ukuran, $ukuran_custom, $jumlah, $barang_id, $ukuran_id, $user_id, $keranjang_id, $ukuran_custom_id, $user_name, $barang_name, $ukuran_name, $ukuran_custom_name, $panjang, $lebar, $tinggi, $harga, $hargaCustom;
+    public $user, $barang, $ukuran, $ukuran_custom, $jumlah, $barang_id, $ukuran_id, $user_id, $keranjang_id, $ukuran_custom_id, $user_name, $barang_name, $ukuran_name, $ukuran_custom_name, $panjang, $lebar, $tinggi, $harga, $hargaCustom, $keterangan;
     public $tipe_ukuran = '';
 
     public function render()
@@ -30,6 +30,7 @@ class KeranjangForm extends ModalComponent
             'user_id' => 'required|exists:users,id',
             'jumlah' => 'required|numeric|min:1',
             'tipe_ukuran' => 'required',
+            'keterangan' => 'nullable|string|max:255'
         ];
 
         if ($this->tipe_ukuran === 'standar') {

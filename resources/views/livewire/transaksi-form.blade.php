@@ -22,6 +22,13 @@
                                         readonly>
                                 </div>
                                 <div class="col-span-1">
+                                    <label for="keterangan" class="form-label">Keterangan</label>
+                                    <input type="text" id="keterangan" name="keterangan"
+                                        value="{{ $keranjangItem->keterangan }}"
+                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        readonly>
+                                </div>
+                                <div class="col-span-1">
                                     <label for="ukuran" class="form-label">Ukuran</label>
                                     @if ($ukuranStandar[$keranjangItem->id])
                                         <input type="text" id="ukuran" name="ukuran"

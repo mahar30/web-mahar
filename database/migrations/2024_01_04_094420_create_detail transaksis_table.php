@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('ukuran', 255);
             // Ini adalah kolom untuk menyimpan harga dalam bentuk bilangan bulat (integer)
             $table->integer('harga');
+            // Ini adalah kolom untuk menyimpan keterangan dalam bentuk teks
+            $table->text('keterangan');
             // Ini adalah timestamp untuk createdAt dan updatedAt
             $table->timestamps();
         });

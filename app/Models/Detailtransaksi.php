@@ -18,6 +18,7 @@ class DetailTransaksi extends Model
         'jumlah', // Ini adalah jumlah barang dalam detail transaksi
         'ukuran', // Ini adalah ukuran dari barang dalam detail transaksi
         'harga', // Ini adalah harga dari barang dalam detail transaksi
+        'keterangan', // Ini adalah keterangan dari barang dalam detail transaksi
     ];
 
     // Mendefinisikan hubungan "belongsTo" dengan model Transaksi
