@@ -28,4 +28,10 @@ class Barang extends Model
     {
         return $this->hasMany(Ukuran::class);
     }
+
+    // Mendefinisikan relasi 'portfolio' dimana 'Barang' memiliki banyak 'Portfolio'.
+    public function portfolio()
+    {
+        return $this->hasMany(Portfolio::class);
+    }
 }

@@ -74,6 +74,13 @@ class User extends Authenticatable
         return $this->hasOne(Keranjang::class);
     }
 
+    // Mendefinisikan bahwa model 'User' memiliki relasi "hasMany" dengan model 'Faq',
+    // yang mengindikasikan bahwa satu User dapat memiliki banyak Faq.
+    public function faq()
+    {
+        return $this->hasMany(Faq::class);
+    }
+
     // Hubungan "hasOne" dengan model Detailpembeli
     public function detailpembeli()
     {
