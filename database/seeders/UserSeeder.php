@@ -21,5 +21,6 @@ class UserSeeder extends Seeder
         ]);
 
         $user->assignRole('admin');
+        $user->removeRole('pelanggan');
     }
 }
