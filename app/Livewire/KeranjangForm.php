@@ -36,9 +36,9 @@ class KeranjangForm extends ModalComponent
         if ($this->tipe_ukuran === 'standar') {
             $rules['ukuran_id'] = 'required|exists:ukuran,id';
         } else if ($this->tipe_ukuran === 'custom') {
-            $rules['panjang'] = 'required|numeric|min:1';
-            $rules['lebar'] = 'required|numeric|min:1';
-            $rules['tinggi'] = 'required|numeric|min:1';
+            $rules['panjang'] = 'required|numeric|min:1|max:600';
+            $rules['lebar'] = 'required|numeric|min:1|max:250';
+            $rules['tinggi'] = 'required|numeric|min:1|max:250';
             $rules['hargaCustom'] = 'required|numeric|min:1';
         }
 
@@ -140,13 +140,42 @@ class KeranjangForm extends ModalComponent
 
     public function hitungHargaCustom()
     {
+        // Penambahan validasi ukuran melebihi batas maksimal
+        if ($this->panjang > 600 || $this->lebar > 250 || $this->tinggi > 250) {
+            $this->error('Ukuran melebihi batas maksimal');
+            return;
+        }
+
+        $ukurans = Ukuran::where('barang_id', $this->barang_id)->get();
+        foreach ($ukurans as $ukuran) {
+            if ($this->panjang == $ukuran->panjang && $this->lebar == $ukuran->lebar && $this->tinggi == $ukuran->tinggi) {
+                $this->error('Ukuran tidak boleh sama dengan ukuran standar');
+                return;
+            }
+        }
+
         if ($this->panjang && $this->lebar && $this->tinggi) {
-            $volumeKayuCm3 = ($this->panjang * $this->lebar * $this->tinggi); // Menghitung volume dalam cm kubik
-            $volumeKayuM3 = $volumeKayuCm3 / 1000000; // Menghitung volume dalam m kubik
-            $hargaKayuM3 = 1500000;
-            $this->hargaCustom = $volumeKayuM3 * $hargaKayuM3; // Menghitung harga berdasarkan volume kayu
+            // Get the smallest and largest standard sizes for the item
+            $smallestSize = Ukuran::where('barang_id', $this->barang_id)->orderBy('panjang', 'asc')->orderBy('lebar', 'asc')->orderBy('tinggi', 'asc')->first();
+            $largestSize = Ukuran::where('barang_id', $this->barang_id)->orderBy('panjang', 'desc')->orderBy('lebar', 'desc')->orderBy('tinggi', 'desc')->first();
+
+            // Calculate the volume of the custom size
+            $volumeCustom = $this->panjang * $this->lebar * $this->tinggi;
+
+            // Calculate the volume of the smallest and largest standard sizes
+            $volumeSmallest = $smallestSize->panjang * $smallestSize->lebar * $smallestSize->tinggi;
+            $volumeLargest = $largestSize->panjang * $largestSize->lebar * $largestSize->tinggi;
+
+            // Compare the volume of the custom size with the standard sizes and adjust the price accordingly
+            if ($volumeCustom > $volumeLargest) {
+                $this->hargaCustom = $largestSize->harga + 100000;
+            } else if ($volumeCustom < $volumeSmallest) {
+                $this->hargaCustom = $smallestSize->harga - 100000;
+            } else {
+                $this->hargaCustom = null; // Reset harga if the custom size is within the range of the standard sizes
+            }
         } else {
-            $this->hargaCustom = null; // Reset harga jika input belum lengkap
+            $this->hargaCustom = null; // Reset harga if input is not complete
         }
     }
 }
