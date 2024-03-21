@@ -54,8 +54,7 @@ final class PembayaranTable extends PowerGridComponent
     {
         $query = Pembayaran::query()->with('user', 'rekening', 'transaksi');
 
-        // If the logged-in user's role is 'Pelanggan', modify the query to return only their Pembayaran records
-        if (auth()->user()->role == 'pelanggan') {
+        if (auth()->user()->hasRole('pelanggan')) {
             $query->where('user_id', auth()->user()->id);
         }
 
