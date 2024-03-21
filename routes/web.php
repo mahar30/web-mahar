@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Barang;
+use App\Models\Faq;
+use App\Models\Portfolio;
 use App\Models\Rekening;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -21,13 +23,19 @@ Route::get('/', function () {
 });
 
 Route::get('/gallery', function () {
-    return view('gallery');
+    $portfolios = Portfolio::all();
+    return view('gallery', compact('portfolios'));
 });
 
 Route::get('/produk', function () {
     $barang = Barang::all();
     return view('produk', compact('barang'));
 });
+
+Route::get('/faqs', function () {
+    $faqs = Faq::all();
+    return view('faqs', compact('faqs'));
+})->name('faqs');
 
 Route::get('/detail-produk/{id}', function ($id) {
     $barang = Barang::findOrFail($id);
