@@ -7,7 +7,7 @@
                 <h1 class="text-center text-4xl font-bold mt-10">Gallery</h1>
             </div>
 
-            {{ dump($portfolios) }}
+            {{-- {{ dump($portfolios) }} --}}
 
             <div class="flex justify-center my-5 flex-wrap">
                 @foreach ($portfolios as $portfolio)
