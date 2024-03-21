@@ -11,6 +11,8 @@
                 <li><a href="{{ url('/') }}">Beranda</a></li>
                 <li><a href="{{ url('/gallery') }}">Gallery</a></li>
                 <li><a href="{{ url('/produk') }}">Produk</a></li>
+                <li><a href="{{ url('/faqs') }}">FAQ</a></li>
+
             </ul>
         </div>
         <a class="btn btn-ghost text-xl text-white">UD Bali Jaya Packing</a>
@@ -20,6 +22,8 @@
             <li><a href="{{ url('/') }}">Beranda</a></li>
             <li><a href="{{ url('/gallery') }}">Galeri</a></li>
             <li><a href="{{ url('/produk') }}">Produk</a></li>
+            <li><a href="{{ url('/faqs') }}">FAQ</a></li>
+
         </ul>
     </div>
     <div class="navbar-end">

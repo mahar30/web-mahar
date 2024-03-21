@@ -4,6 +4,8 @@
             <a class="link link-hover">Beranda</a>
             <a class="link link-hover">Produk</a>
             <a class="link link-hover">Gallery</a>
+            <li><a href="{{ url('/faqs') }}">FAQ</a></li>
+
         </nav>
         <aside class="text-white">
             <p>Copyright © 2024 - All right reserved by UD Bali Jaya Packing</p>
