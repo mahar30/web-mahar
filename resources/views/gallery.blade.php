@@ -7,6 +7,8 @@
                 <h1 class="text-center text-4xl font-bold mt-10">Gallery</h1>
             </div>
 
+            {{ dump($portfolios) }}
+
             <div class="flex justify-center my-5 flex-wrap">
                 @foreach ($portfolios as $portfolio)
                     <div class="card w-96 mx-2 bg-base-100 shadow-xl my-3">
