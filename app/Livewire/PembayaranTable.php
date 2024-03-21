@@ -52,8 +52,14 @@ final class PembayaranTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Pembayaran::query()
-            ->with('user', 'rekening', 'transaksi');
+        $query = Pembayaran::query()->with('user', 'rekening', 'transaksi');
+
+        // If the logged-in user's role is 'Pelanggan', modify the query to return only their Pembayaran records
+        if (auth()->user()->role == 'pelanggan') {
+            $query->where('user_id', auth()->user()->id);
+        }
+
+        return $query;
     }
 
     public function relationSearch(): array
