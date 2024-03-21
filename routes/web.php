@@ -63,6 +63,10 @@ Route::middleware([
         return view('users');
     })->name('users');
 
+    Route::get('/portfolio', function () {
+        return view('portfolio');
+    })->name('portfolio');
+
     Route::get('/barang', function () {
         return view('barang');
     })->name('barang');
@@ -86,4 +90,8 @@ Route::middleware([
     Route::get('/keranjang', function () {
         return view('keranjang');
     })->name('keranjang');
+
+    Route::get('/faq', function () {
+        return view('faq');
+    })->name('faq');
 });

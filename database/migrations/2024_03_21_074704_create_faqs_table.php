@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('faqs', function (Blueprint $table) {
+        Schema::create('faq', function (Blueprint $table) {
             // Kolom 'id' digunakan sebagai primary key (kunci utama) untuk memberikan identifikasi unik kepada setiap item pertanyaan dalam tabel.
             $table->id();
             // Kolom 'penanya_id' digunakan sebagai kunci luar (foreign key) yang terhubung dengan tabel 'users'.
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('faqs');
+        Schema::dropIfExists('faq');
     }
 };
